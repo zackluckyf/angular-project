@@ -8,6 +8,10 @@
 
     <script src="vendor/angular/angular.js"></script>
     <script src="main/app.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+  <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.1.2.js"></script>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body ng-app="myApp">
@@ -15,10 +19,27 @@
         <div class="row">
             <h1 class="heading">{{mc.name}}</h1>
         </div>
-        <div class="player-inputs">
-            <input class="row" type='text' placeholder="Adrian Peterson">
-            <input class="row" type='text' placeholder="Eli Manning">
+        <div class="teams">
+            <h3>Your Team</h3>
+            <h3>Other Team</h3>
         </div>
+       <form name="teamForms" ng-submit="" novalidate>
+        <div class="player-inputs form-groups">
+            <input type='text' ng-model="team1player1" placeholder="Adrian Peterson">
+            <input type='text' ng-model="team2player1" placeholder="Eli Manning">
+        </div>
+        <div class="player-inputs">
+            <input type='text' ng-model="team1player2" placeholder="Carson Palmer">
+            <input type='text' ng-model="team2player2" placeholder="Antonio Brown">
+        </div>
+        <div class="player-inputs">
+            <input type='text' ng-model="team1player3" placeholder="Phillip Rivers">
+            <input type='text' ng-model="team2player3" placeholder="A.J. Green">
+        </div>
+        <div class="submit-button">
+          <button type="button" name="button">Analyze Trade!</button>
+        </div>
+      </div>
     </div>
 </body>
 
