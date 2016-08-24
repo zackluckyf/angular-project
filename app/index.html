@@ -1,20 +1,25 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Fantasy Football</title>
-  <link href="style.css" rel="stylesheet" type="text/css">
 
-  <script src="vendor/angular/angular.js"></script>
-  <script src="app.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Fantasy Football</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+
+    <script src="vendor/angular/angular.js"></script>
+    <script src="main/app.js"></script>
 </head>
 
 <body ng-app="myApp">
-  <div ng-controller='MyController as mc'>
-    <div id="heading">
-      {{mc.name}}
+    <div ng-controller='MyController as mc'>
+        <div class="row">
+            <h1 class="heading">{{mc.name}}</h1>
+        </div>
+        <div class="player-inputs">
+            <input class="row" type='text' placeholder="Adrian Peterson">
+            <input class="row" type='text' placeholder="Eli Manning">
+        </div>
     </div>
-  </div>
-</div>
 </body>
+
 </html>
