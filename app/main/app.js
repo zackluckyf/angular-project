@@ -1,8 +1,4 @@
-(function() {
-    angular.module('myApp', [])
-        .controller('MyController', MyController);
-
-    function MyController() {
-        this.name = 'Fantasy Football Trade Analyzer!';
-    }
+(function () {
+  'use strict';
+  angular.module('myApp', ['myApp.data']);
 })();

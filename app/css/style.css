@@ -1,11 +1,9 @@
-.row {
-  margin: 0 auto; }
-
-.heading {
+.row, .teams {
+  margin: 0 auto;
   text-align: center; }
 
 .teams {
-  text-align: center; }
+  color: red; }
 
 h3 {
   display: inline-block; }
@@ -14,14 +12,7 @@ h3:nth-child(2) {
   margin-left: 320px; }
 
 .player-inputs {
-  text-align: center;
   margin-bottom: 20px; }
 
-input {
-  text-align: center; }
-
-input:nth-child(2) {
-  margin-left: 250px; }
-
-.submit-button {
-  text-align: center; }
+ul {
+  display: inline-block; }
