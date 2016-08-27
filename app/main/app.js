@@ -1,4 +1,4 @@
-(function () {
-  'use strict';
-  angular.module('myApp', ['myApp.data']);
+(function() {
+    'use strict';
+    angular.module('myApp', ['myApp.data']);
 })();
