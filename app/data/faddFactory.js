@@ -14,8 +14,11 @@
         };
 
         function addPlayer(newPlayer) {
-            if (player.newPlayer) {
-                return newPlayer;
+            if (player[newPlayer]) {
+                return {
+                    name: newPlayer,
+                    value: player[newPlayer]
+                };
             }
         }
 
