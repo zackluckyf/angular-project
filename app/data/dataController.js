@@ -36,6 +36,7 @@
                 string += 'This is a bad trade for you!';
             }
             window.alert(string);
+            return string;
         };
     }
 }());

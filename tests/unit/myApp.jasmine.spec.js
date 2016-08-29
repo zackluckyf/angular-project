@@ -36,6 +36,9 @@ describe('myApp', function() {
                 value: 2
             }]);
         });
+        it("should return each teams player values and say that the original trade is good", function() {
+            expect(scope.dc.tradeAnalysis(scope.dc.team1, scope.dc.team2)).toEqual('Your player value: ' + 6 + '\nTheir player value: ' + 5 + '\nThis is a good trade for you!');
+        });
     });
     describe('Data Factory', function() {
         it("should return [{name: 'Adrian Peterson', value: 4}, {name: 'Carson Palmer', value: 2}] given team1", function() {
