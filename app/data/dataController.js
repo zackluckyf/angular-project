@@ -11,13 +11,18 @@
             if (addFactory.addPlayer(player) && Object.keys(this.team1).length < 5) {
                 this.team1.push(addFactory.addPlayer(player));
             }
+            // this clears the input field after player is added!
+            this.player1 = '';
         };
 
         this.updateTeam2 = function(player) {
             if (addFactory.addPlayer(player) && Object.keys(this.team2).length < 5) {
                 this.team2.push(addFactory.addPlayer(player));
             }
+            // this clears the input field after player is added!
+            this.player2 = '';
         };
+
 
         this.title = 'Fantasy Football Trade Analyzer!';
 
@@ -28,14 +33,13 @@
             var team1val = calculateFactory.calcTeamValue(team1);
             var team2val = calculateFactory.calcTeamValue(team2);
             var string = 'Your player value: ' + team1val + '\nTheir player value: ' + team2val + '\n';
-            if (team1val > team2val) {
+            if (team1val < team2val) {
                 string += 'This is a good trade for you!';
             } else if (team1val === team2val) {
                 string += 'This is a balanced trade!';
-            } else if (team1val < team2val) {
+            } else if (team1val > team2val) {
                 string += 'This is a bad trade for you!';
             }
-            window.alert(string);
             return string;
         };
     }

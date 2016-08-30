@@ -3,7 +3,12 @@
     angular.module('myApp.data')
         .factory('addFactory', addFactory);
 
-    function addFactory() {
+    function addFactory($http) {
+        // var authToken;
+        // $http.get('/add').then(function(response) {
+        //     authToken = response.headers('A-Token');
+        //     $scope.user = response.data;
+        // });
         var player = {
             'Adrian Peterson': 4,
             'Antonio Brown': 5,

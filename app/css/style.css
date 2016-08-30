@@ -1,6 +1,7 @@
 .myRow, .teams {
   margin: 0 auto;
-  text-align: center; }
+  text-align: center;
+  vertical-align: top; }
 
 .teams {
   color: red; }
@@ -10,11 +11,24 @@
 
 ul {
   margin: 0;
+  padding-left: 0px;
   display: inline-block;
   list-style: none; }
+
+h3 {
+  display: inline-block; }
 
 .remove {
   margin-left: 10px; }
 
 .players {
   text-align: left; }
+
+.submit-button {
+  margin-top: 10px; }
+
+.player-inputs {
+  margin-top: 10px; }
+
+.team2 {
+  margin-left: 20px; }
