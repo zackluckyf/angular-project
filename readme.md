@@ -18,3 +18,4 @@ Use this API with a list of current NFL players
 Fix HTML and CSS
 Find an API with projected ROS season scoring (optional)
 Create a typeahead directive (optional)
+Create a toggle directive
