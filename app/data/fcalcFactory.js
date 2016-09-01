@@ -21,8 +21,24 @@
             }
             return teamValue;
         }
+
+        function analyzeTrade(team1, team2) {
+            var team1val = calcTeamValue(team1);
+            var team2val = calcTeamValue(team2);
+            var string = 'Your player value: ' + team1val + '\nTheir player value: ' + team2val + '\n';
+            if (team1val < team2val) {
+                string += 'This is a good trade for you!';
+            } else if (team1val === team2val) {
+                string += 'This is a balanced trade!';
+            } else if (team1val > team2val) {
+                string += 'This is a bad trade for you!';
+            }
+            return string;
+        }
+
         return {
-            calcTeamValue: calcTeamValue
+            calcTeamValue: calcTeamValue,
+            analyzeTrade: analyzeTrade
         };
     }
 }());
