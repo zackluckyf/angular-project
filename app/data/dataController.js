@@ -4,7 +4,7 @@
     .controller('dataController', DataController);
 
   function DataController (dataFactory, calculateFactory, addFactory) {
-    this.title = 'Fantasy Football Trade Analyzer!';
+    this.title = 'Fantasy Football Trade Analyzer';
     this.team1 = dataFactory.getTeamData('team1');
     this.team2 = dataFactory.getTeamData('team2');
 
@@ -15,9 +15,11 @@
       this.player2 = '';
     };
 
+    this.advice = [];
+
     this.tradeAnalysis = function (team1, team2) {
-      console.log(calculateFactory.analyzeTrade(team1, team2));
-      return calculateFactory.analyzeTrade(team1, team2);
+      this.advice = calculateFactory.analyzeTrade(team1, team2);
+      return this.advice;
     };
   }
 }());

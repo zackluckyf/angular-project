@@ -13,8 +13,8 @@ describe('myApp', function () {
     });
   }));
   describe('Data Controller', function () {
-    it('should give its name as Fantasy Football Trade Analyzer!', function () {
-      expect(scope.dc.title).toEqual('Fantasy Football Trade Analyzer!');
+    it('should give its name as Fantasy Football Trade Analyzer', function () {
+      expect(scope.dc.title).toEqual('Fantasy Football Trade Analyzer');
     });
     it('should get Team data', function () {
       expect(dataFactory.getTeamData).toHaveBeenCalledWith('team1');
@@ -52,7 +52,7 @@ describe('myApp', function () {
       }]);
     });
     it('should return each teams player values and say that the original trade is good', function () {
-      expect(scope.dc.tradeAnalysis(scope.dc.team1, scope.dc.team2)).toEqual('Your player value: ' + 6 + '\nTheir player value: ' + 5 + '\nThis is a bad trade for you!');
+      expect(scope.dc.tradeAnalysis(scope.dc.team1, scope.dc.team2)).toEqual(['Your player value: 6', 'Their player value: 5', ' This is a bad trade for you!']);
     });
   });
 });
