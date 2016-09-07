@@ -45,4 +45,7 @@ button {
   cursor: pointer; }
 
 .results {
-  margin-top: 20px; }
+  margin-top: 10px; }
+
+.ng-cloak {
+  display: none !important; }

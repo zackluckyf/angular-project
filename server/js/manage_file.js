@@ -7,7 +7,6 @@ function write (name, data) {
     if (err) {
       return console.log(err);
     }
-
     console.log('The file was saved!');
   });
 }

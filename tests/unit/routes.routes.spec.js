@@ -1,5 +1,6 @@
 describe('Routes', function () {
-  var $rootScope, $state, $injector, Team1, state = 'home';
+  'use strict';
+  var $rootScope, $state, $injector, $location, $httpBackend, Team1, state = 'home';
   beforeEach(module('myApp.routes'));
   beforeEach(inject(function (_$rootScope_, _$state_, _$injector_, _$location_) {
     $rootScope = _$rootScope_;

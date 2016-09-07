@@ -19,6 +19,7 @@ module.exports = function (config) {
       'main/**/*.js',
       'routes/**/*.js',
       'data/**/*.js',
+      'typeAhead/**/*.js',
       '../tests/unit/**/*.spec.js'
     ],
 
