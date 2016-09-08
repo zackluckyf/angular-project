@@ -36,7 +36,6 @@ var homepage = (function () {
   };
 
   return {
-    getTitleText: getTitleText,
     getPlayerText: getPlayerText,
     clickRemove: clickRemove,
     addPlayer: addPlayer,
