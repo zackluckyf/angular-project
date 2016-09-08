@@ -1,31 +1,33 @@
-<div class="teams">
-    <h3>Trade Value</h3>
-</div>
-
-<div class="player-lists myRow ng-cloak">
-    <ul class="team1 players">
-        <li ng-repeat='player in dc.team1'>
-            <span>{{player.name}}</span>
-            <span><button ng-click="dc.team1.splice($index,1)" type="button" class="remove" name="button">Remove</button></span>
-        </li>
-        <input type-ahead class='player-inputs' ng-model='dc.player1' placeholder='add player' type="text" value="">
-        <span><button ng-click='dc.updateTeam(dc.player1, dc.team1)' type="button"  class="add" name="button">Add</button></span>
-    </ul>
-    <ul class="team2 players">
-        <li ng-repeat='player in dc.team2'>
-            <span>{{player.name}}</span>
-            <span><button ng-click="dc.team2.splice($index,1)" type="button" class="remove" name="button">Remove</button></span>
-        </li>
-        <input type-ahead class='player-inputs' ng-model='dc.player2' placeholder='add player' type="text" value="">
-        <span><button ng-click='dc.updateTeam(dc.player2, dc.team2)' type="button"  class="add" name="button">Add</button></span>
-    </ul>
-    <div class="submit-button myRow">
-        <button><a ui-sref="team2">Other Team</a></button>
-        <button ng-click='dc.tradeAnalysis(dc.team1, dc.team2)'>Analyze New Trade!</button>
+<div id="page3">
+    <div class="sub-title">
+        <h3>Trade Value</h3>
     </div>
-    <div class="myRow">
-        <div class="results">{{dc.advice[0]}}</div>
-        <div class="results">{{dc.advice[1]}}</div>
-        <div class="results">{{dc.advice[2]}}</div>
+
+    <div class="player-lists myRow ng-cloak">
+        <ul class="team1 players">
+            <li ng-repeat='player in dc.team1'>
+                <span>{{player.name}}</span>
+                <span><button ng-click="dc.team1.splice($index,1)" type="button" class="remove" name="button">Remove</button></span>
+            </li>
+            <input type-ahead class='player-inputs' ng-model='dc.player1' placeholder='add player' type="text" value="">
+            <span><button ng-click='dc.updateTeam(dc.player1, dc.team1)' type="button"  class="add" name="button">Add</button></span>
+        </ul>
+        <ul class="team2 players">
+            <li ng-repeat='player in dc.team2'>
+                <span>{{player.name}}</span>
+                <span><button ng-click="dc.team2.splice($index,1)" type="button" class="remove" name="button">Remove</button></span>
+            </li>
+            <input type-ahead class='player-inputs' ng-model='dc.player2' placeholder='add player' type="text" value="">
+            <span><button ng-click='dc.updateTeam(dc.player2, dc.team2)' type="button"  class="add" name="button">Add</button></span>
+        </ul>
+        <div class="submit-button myRow">
+            <button><a ui-sref="team2">Other Team</a></button>
+            <button ng-click='dc.tradeAnalysis(dc.team1, dc.team2)'>Analyze New Trade!</button>
+        </div>
+        <div class="myRow">
+            <div class="results">{{dc.advice[0]}}</div>
+            <div class="results">{{dc.advice[1]}}</div>
+            <div class="results">{{dc.advice[2]}}</div>
+        </div>
     </div>
 </div>

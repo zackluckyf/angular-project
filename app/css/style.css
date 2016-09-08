@@ -1,9 +1,9 @@
-.myRow, .teams {
+.myRow, .sub-title {
   margin: 0 auto;
   text-align: center;
   vertical-align: top; }
 
-.teams {
+.sub-title {
   color: red; }
 
 .player-inputs {
