@@ -1,32 +1,49 @@
-describe('Routes', function () {
+xdescribe('Routes', function () {
   'use strict';
-  var $rootScope, $state, $injector, $location, $httpBackend, Team1, state = 'home';
+  var $rootScope, $state, $location, $httpBackend, state = 'home';
+
+  function digestFlush () {
+    $rootScope.$digest();
+    $httpBackend.flush();
+  }
   beforeEach(module('myApp.routes'));
-  beforeEach(inject(function (_$rootScope_, _$state_, _$injector_, _$location_) {
-    $rootScope = _$rootScope_;
-    $state = _$state_;
-    $injector = _$injector_;
-    $location = _$location_;
+  beforeEach(inject(function ($injector) {
+    $rootScope = $injector.get('$rootScope');
+    $state = $injector.get('$state');
+    $location = $injector.get('$location');
     $httpBackend = $injector.get('$httpBackend');
-    Team1 = $httpBackend.when('GET', 'team1.html')
+    $httpBackend.when('GET', 'team2.html')
+      .respond('Made it to team2.html!');
+    $httpBackend.when('GET', 'team1.html')
       .respond('Made it to team1.html!');
+    $httpBackend.when('GET', 'trade.html')
+      .respond('Made it to trade.html!');
   }));
   afterEach(function () {
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
   });
-
-  it('should respond to URL', function () {
+  it('should respond to team1 URL', function () {
     $state.go('team1');
-    $rootScope.$digest();
-    $httpBackend.flush();
+    digestFlush();
     expect($state.current.url).toEqual('/team1');
     expect($location.$$path).toEqual('/team1');
   });
-  it('should respond to URL without a state', function () {
-    $location.url('tea');
+  it('should respond to team2 URL', function () {
+    $state.go('team2');
+    digestFlush();
+    expect($state.current.url).toEqual('/team2');
+    expect($location.$$path).toEqual('/team2');
+  });
+  it('should respond to trade URL', function () {
+    $state.go('trade');
+    digestFlush();
+    expect($state.current.url).toEqual('/trade');
+    expect($location.$$path).toEqual('/trade');
+  });
+  it('should respond to incorrect URL', function () {
+    $location.url('/tea');
     $rootScope.$digest();
-    $httpBackend.flush();
     expect($location.$$path).toEqual('/team1');
   });
 });

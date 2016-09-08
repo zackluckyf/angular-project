@@ -1,5 +1,6 @@
 (function () {
-  angular.module('myApp.routes', [ 'ui.router'])
+  'use strict';
+  angular.module('myApp.routes', ['ui.router'])
     .config(function ($stateProvider, $urlRouterProvider) {
       $stateProvider
         .state('team1', {
