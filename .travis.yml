@@ -13,3 +13,6 @@ script:
 
 after_script:
   - npm stop
+
+notifications:
+  email: false
