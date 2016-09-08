@@ -5,7 +5,7 @@ describe('myApp', function() {
     it('should find "Fantasy Football Trade Analyzer!" inside a heading element', function() {
         expect(homepage.getTitleText()).toEqual('Fantasy Football Trade Analyzer');
     });
-    it("should have a default player text", function() {
+    it("should have a player text of Adrian Peterson", function() {
         expect(homepage.getPlayerText()).toEqual('Adrian Peterson');
     });
     it("should remove a player once remove is clicked", function() {
