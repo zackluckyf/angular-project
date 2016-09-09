@@ -18,6 +18,7 @@ module.exports = function (config) {
       'vendor/angular-mocks/angular-mocks.js',
       'main/**/*.js',
       'routes/**/*.js',
+      'pages/**/*.js',
       'data/**/*.js',
       'typeAhead/**/*.js',
       '../tests/unit/**/*.spec.js',

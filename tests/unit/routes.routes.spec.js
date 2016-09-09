@@ -11,31 +11,31 @@ describe('Routes', function () {
     $state = $injector.get('$state');
     $location = $injector.get('$location');
     var $templateCache = $injector.get('$templateCache');
-    $templateCache.put('team1.html', '');
-    $templateCache.put('team2.html', '');
-    $templateCache.put('trade.html', '');
+    $templateCache.put('pages/page1/page1.html', '');
+    $templateCache.put('pages/page2/page2.html', '');
+    $templateCache.put('pages/page3/page3.html', '');
   }));
   it('should respond to team1 URL', function () {
-    $state.go('team1');
+    $state.go('page1');
     digest();
-    expect($state.current.url).toEqual('/team1');
-    expect($location.$$path).toEqual('/team1');
+    expect($state.current.url).toEqual('/page1');
+    expect($location.$$path).toEqual('/page1');
   });
   it('should respond to team2 URL', function () {
-    $state.go('team2');
+    $state.go('page2');
     digest();
-    expect($state.current.url).toEqual('/team2');
-    expect($location.$$path).toEqual('/team2');
+    expect($state.current.url).toEqual('/page2');
+    expect($location.$$path).toEqual('/page2');
   });
   it('should respond to trade URL', function () {
-    $state.go('trade');
+    $state.go('page3');
     digest();
-    expect($state.current.url).toEqual('/trade');
-    expect($location.$$path).toEqual('/trade');
+    expect($state.current.url).toEqual('/page3');
+    expect($location.$$path).toEqual('/page3');
   });
   it('should respond to incorrect URL', function () {
     $location.url('/tea');
     digest();
-    expect($location.$$path).toEqual('/team1');
+    expect($location.$$path).toEqual('/page1');
   });
 });
