@@ -12,7 +12,11 @@ npm install protractor -g
 
 Next Steps
 
-write more comprehensive protractor tests
+Finish organizing pages (integrate routes, data, and typeahead into pages)
+
+Update index.html with scripts in right locations
+
+Fix tests
 
 Setup Server
 
