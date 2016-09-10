@@ -1,6 +1,10 @@
 // Karma configuration
 // Generated on Tue Aug 02 2016 09:45:20 GMT-0400 (Eastern Daylight Time)
 
+if (process.env.TRAVIS) {
+    configuration.browsers = ['Chrome_travis_ci'];
+}
+
 module.exports = function(config) {
     config.set({
 
@@ -65,7 +69,4 @@ module.exports = function(config) {
         // how many browser should be started simultaneous
         concurrency: Infinity
     });
-    if (process.env.TRAVIS) {
-        configuration.browsers = ['Chrome_travis_ci'];
-    }
 };
