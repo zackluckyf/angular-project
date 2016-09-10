@@ -13,10 +13,8 @@ npm install protractor -g
 Next Steps
 
 pages(aka features) in app contains angular code, the issue with multiple controllers popped up,
-need to have Dane explain how to send state from one page to the next. Ask him if he has showed us how to do that yet.
-
-Break up tests, work slowly they are organized into folders
-and all the tests are already written - Saturday
+need to have Dane explain how to send state from one page to the next.
+Ask him if he has showed us how to do that yet.
 
 After Fixing Tests work on CI! - Saturday
 
