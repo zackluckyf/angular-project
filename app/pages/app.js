@@ -1,7 +1,7 @@
-(function () {
-  'use strict';
-  angular.module('myApp', ['myApp.data', 'myApp.routes', 'myApp.typeAhead'])
-    .config(function ($urlRouterProvider) {
-      $urlRouterProvider.otherwise('/yourTeam');
-    });
+(function() {
+    'use strict';
+    angular.module('myApp', ['myApp.data', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.tradeAnalyzer'])
+        .config(function($urlRouterProvider) {
+            $urlRouterProvider.otherwise('/yourTeam');
+        });
 })();

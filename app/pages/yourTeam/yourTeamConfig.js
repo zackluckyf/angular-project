@@ -1,11 +1,11 @@
 (function() {
     'use strict';
-    angular.module('myApp.yourTeam', ['ui-router'])
+    angular.module('myApp.yourTeam', ['ui.router', 'myApp.data'])
         .config(function($stateProvider) {
             $stateProvider
                 .state('yourTeam', {
                     url: '/yourTeam',
-                    templateUrl: 'yourTeam.html'
+                    templateUrl: 'pages/yourTeam/yourTeam.html'
                 });
         });
 }());

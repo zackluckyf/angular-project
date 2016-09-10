@@ -2,17 +2,17 @@
     <div class="sub-title">
         <h3>Your Team</h3>
     </div>
-    <div class="player-lists myRow ng-cloak">
+    <div class="player-lists myRow ng-cloak" ng-controller='yourTeamController as ytc'>
         <ul class="team1 players">
-            <li ng-repeat='player in dc.team1'>
+            <li ng-repeat='player in ytc.team1'>
                 <span>{{player.name}}</span>
-                <span><button ng-click="dc.team1.splice($index,1)" type="button" class="remove" name="button">Remove</button></span>
+                <span><button ng-click="ytc.team1.splice($index,1)" type="button" class="remove" name="button">Remove</button></span>
             </li>
-            <input type-ahead class='player-inputs' ng-model='dc.player1' placeholder='add player' type="text" value="">
-            <span><button ng-click='dc.updateTeam(dc.player1, dc.team1)' class="add" type="button" name="button">Add</button></span>
+            <input type-ahead class='player-inputs' ng-model='ytc.player1' placeholder='add player' type="text" value="">
+            <span><button ng-click='ytc.updateTeam(ytc.player1, ytc.team1)' class="add" type="button" name="button">Add</button></span>
         </ul>
         <div class="submit-button myRow">
-            <button id="next-button"><a ui-sref="team2">Other Team</a></button>
+            <button id="next-button"><a ui-sref="otherTeam">Other Team</a></button>
         </div>
     </div>
 </div>

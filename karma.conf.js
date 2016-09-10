@@ -16,11 +16,7 @@ module.exports = function(config) {
             'vendor/angular/angular.js',
             'vendor/angular-ui-router/release/angular-ui-router.js',
             'vendor/angular-mocks/angular-mocks.js',
-            'main/**/*.js',
-            'routes/**/*.js',
             'pages/**/*.js',
-            'data/**/*.js',
-            'typeAhead/**/*.js',
             '../tests/unit/**/*.spec.js',
             '**/*.html'
         ],

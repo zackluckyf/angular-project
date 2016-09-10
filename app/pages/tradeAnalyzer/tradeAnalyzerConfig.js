@@ -1,11 +1,11 @@
 (function() {
     'use strict';
-    angular.module('myApp.tradeAnalyzer', ['ui-router'])
+    angular.module('myApp.tradeAnalyzer', ['ui.router', 'myApp.data'])
         .config(function($stateProvider) {
             $stateProvider
                 .state('tradeAnalyzer', {
                     url: '/tradeAnalyzer',
-                    templateUrl: 'tradeAnalyzer.html'
+                    templateUrl: 'pages/tradeAnalyzer/tradeAnalyzer.html'
                 });
         });
 }());

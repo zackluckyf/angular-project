@@ -9,24 +9,27 @@
 </head>
 
 <body ng-app="myApp">
-    <div class="container" ng-controller='dataController as dc'>
+    <div class="container">
         <div class="myRow">
-            <h1 id="heading" class="ng-cloak">{{dc.title}}</h1>
+            <h1 id="heading" class="ng-cloak">Fantasy Football Trade Analyzer!</h1>
         </div>
         <div ui-view></div>
     </div>
     <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="pages/app.js"></script>
-    <script src="routes/routes.js"></script>
-    <script src="typeAhead/typeAheadDirective.js"></script>
-    <script src="data/dataConfig.js"></script>
-    <script src="data/dataController.js"></script>
-    <script src="data/dataFactory.js"></script>
-    <script src="data/fcalcFactory.js"></script>
-    <script src="data/faddFactory.js"></script>
+    <script src="pages/data/dataConfig.js"></script>
+    <script src="pages/data/dataFactory.js"></script>
+    <script src="pages/data/fcalcFactory.js"></script>
+    <script src="pages/data/faddFactory.js"></script>
+    <script src="pages/yourTeam/yourTeamConfig.js"></script>
+    <script src="pages/otherTeam/otherTeamConfig.js"></script>
+    <script src="pages/tradeAnalyzer/tradeAnalyzerConfig.js"></script>
+    <script src="pages/yourTeam/yourTeamController.js"></script>
+    <script src="pages/otherTeam/otherTeamController.js"></script>
+    <script src="pages/tradeAnalyzer/tradeAnalyzerController.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
     <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.1.2.js"></script>
 </body>
 

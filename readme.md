@@ -12,13 +12,15 @@ npm install protractor -g
 
 Next Steps
 
-Finish organizing pages (integrate routes, data, and typeahead into pages)
+pages(aka features) in app contains angular code, the issue with multiple controllers popped up,
+need to have Dane explain how to send state from one page to the next. Ask him if he has showed us how to do that yet.
 
-Update index.html with scripts in right locations
+Break up tests, work slowly they are organized into folders
+and all the tests are already written - Saturday
 
-Fix tests
+After Fixing Tests work on CI! - Saturday
 
-Setup Server
+Setup Server - Sunday
 
 it does
 
@@ -32,7 +34,7 @@ it should
 
   -organize it alphabetically based on last names
 
-  -assign values based on names e.g. starts with a value = 1, b value = 2, etc.
+  -make up values based on names i.e. first letter, length of name, or etc.
 
 Fix HTML and SCSS
 
