@@ -10,13 +10,21 @@ npm install karma-jasmine -g
 
 npm install protractor -g
 
+Finished Steps
+
+-CI has a passing build! All running tests pass
+
+-Project reorganized
+
+-Tests reorganized
+
+-Controllers created for every pages
+
 Next Steps
 
 pages(aka features) in app contains angular code, the issue with multiple controllers popped up,
 need to have Dane explain how to send state from one page to the next.
 Ask him if he has showed us how to do that yet.
-
-After Fixing Tests work on CI! - Saturday
 
 Setup Server - Sunday
 
