@@ -20,9 +20,6 @@ function handleRequest(request, response) {
     }
 }
 
-/* Trying to
- get server
-  to respond */
 dispatcher.onGet('/yourTeam', function(req, res) {
     res.writeHead(200, {
         'Content-Type': 'application/json'
