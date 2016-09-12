@@ -11,7 +11,7 @@ describe('Your Team Config', function() {
         $state = $injector.get('$state');
         $location = $injector.get('$location');
         var $templateCache = $injector.get('$templateCache');
-        $templateCache.put('pages/yourTeam/yourTeam.html', '');
+        $templateCache.put('app/pages/yourTeam/yourTeam.html', '');
     }));
     it('should respond to yourTeam URL', function() {
         $state.go('yourTeam');

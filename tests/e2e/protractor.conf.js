@@ -1,21 +1,21 @@
 // jshint strict: false
 exports.config = {
-    allScriptsTimeout: 11000,
+  allScriptsTimeout: 11000,
 
-    specs: [
-        '*.spec.js'
-    ],
+  specs: [
+    '*.spec.js'
+  ],
 
-    capabilities: {
-        'browserName': 'phantomjs',
-        'phantomjs.binary.path': require('phantomjs').path
-    },
+  capabilities: {
+    'browserName': 'phantomjs',
+    'phantomjs.binary.path': require('phantomjs').path
+  },
 
-    baseUrl: 'http://localhost:8000/',
+  baseUrl: 'http://localhost:8000/',
 
-    framework: 'jasmine',
+  framework: 'jasmine',
 
-    jasmineNodeOpts: {
-        defaultTimeoutInterval: 30000
-    }
+  jasmineNodeOpts: {
+    defaultTimeoutInterval: 30000
+  }
 };

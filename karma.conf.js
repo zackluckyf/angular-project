@@ -5,7 +5,7 @@ module.exports = function (config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: './app',
+    basePath: './src',
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -13,10 +13,10 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../vendor/angular/angular.js',
-      '../vendor/angular-ui-router/release/angular-ui-router.js',
-      '../vendor/angular-mocks/angular-mocks.js',
-      './**/*.js',
+      './vendor/angular/angular.js',
+      './vendor/angular-ui-router/release/angular-ui-router.js',
+      './vendor/angular-mocks/angular-mocks.js',
+      './app/**/*.js',
       '../tests/unit/**/*.spec.js',
       '**/*.html'
     ],
