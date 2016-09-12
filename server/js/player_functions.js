@@ -1,7 +1,8 @@
 /*jshint esversion: 6 */
 
 var http = require('http');
-var templates = require('./js/manage_file');
+var templates = require('./manage_file');
+var playerNames;
 
 function playerData () {
   var url = 'http://www.fantasyfootballnerd.com/service/players/json/dr4mykguqpd9/';
@@ -32,12 +33,19 @@ function writeData (data) {
 }
 
 function readData (query) {
-  var data = templates.read('nflPlayers.txt', query);
-  return data;
+  query = query.toLowerCase;
+  playerNames = playerNames || templates.read('nflPlayers.txt').split(',');
+  return playerNames.filter(function (player) {
+    player = player.toLowerCase();
+    if (player.includes(query)) {
+      return player;
+    }
+  });
 }
 
 module.exports = {
   readData: readData,
   writeData: writeData,
-  playerData: playerData
+  playerData: playerData,
+  playerNames: playerNames
 };
