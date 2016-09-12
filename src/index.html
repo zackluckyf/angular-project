@@ -8,7 +8,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" rel="stylesheet">
 </head>
 
-<body ng-app="myApp">
+<body ng-app="myApp" ng-strict-di>
     <div class="container">
         <div class="myRow">
             <h1 id="heading" class="ng-cloak">Fantasy Football Trade Analyzer!</h1>
@@ -19,9 +19,9 @@
     <script src="vendor/angular/angular.js"></script>
     <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="app/app.js"></script>
-    <script src="app/pages/team/teamReturnPlayersFactory.js"></script>
+    <script src="app/pages/team/returnTeamFactory.js"></script>
     <script src="app/pages/tradeValue/tradeValueFactory.js"></script>
-    <script src="app/pages/team/teamPlayerAddFactory.js"></script>
+    <script src="app/pages/team/addPlayerFactory.js"></script>
     <script src="app/pages/yourTeam/yourTeamController.js"></script>
     <script src="app/pages/otherTeam/otherTeamController.js"></script>
     <script src="app/pages/tradeAnalyzer/tradeAnalyzerController.js"></script>

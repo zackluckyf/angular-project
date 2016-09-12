@@ -1,9 +1,9 @@
 (function () {
   'use strict';
   angular.module('myApp.team')
-    .factory('addFactory', addFactory);
+    .factory('addPlayersFactory', addPlayersFactory);
 
-  function addFactory () {
+  function addPlayersFactory () {
     var player = {
       'Adrian Peterson': 4,
       'Antonio Brown': 5,

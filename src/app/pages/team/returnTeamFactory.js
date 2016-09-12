@@ -3,6 +3,8 @@
   angular.module('myApp.team')
     .factory('teamPlayersFactory', teamPlayersFactory);
 
+  teamPlayersFactory.$inject = ['$http'];
+
   function teamPlayersFactory ($http) {
     function getPlayers (response) {
       return response.data;
