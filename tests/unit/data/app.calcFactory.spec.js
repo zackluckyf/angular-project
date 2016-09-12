@@ -1,14 +1,14 @@
 describe('Calc Factory', function () {
   'use strict';
-  var calculateFactory;
+  var tradeValueFactory;
 
-  beforeEach(module('myApp.data'));
-  beforeEach(inject(function (_calculateFactory_) {
+  beforeEach(module('myApp.team'));
+  beforeEach(inject(function (_tradeValueFactory_) {
     // The injector unwraps the underscores (_) from around the parameter names when matching
-    calculateFactory = _calculateFactory_;
+    tradeValueFactory = _tradeValueFactory_;
   }));
   it("should return 6 given [{name: 'Adrian Peterson', value: 4}, {name: 'Carson Palmer', value: 2}]", function () {
-    expect(calculateFactory.calcTeamValue([{
+    expect(tradeValueFactory.calcTeamValue([{
       name: 'Adrian Peterson',
       value: 4
     }, {
@@ -17,7 +17,7 @@ describe('Calc Factory', function () {
     }])).toEqual(6);
   });
   it("should return 5 given [{name: 'Antonio Brown', value: 5}]", function () {
-    expect(calculateFactory.calcTeamValue([{
+    expect(tradeValueFactory.calcTeamValue([{
       name: 'Antonio Brown',
       value: 5
     }])).toEqual(5);

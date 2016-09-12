@@ -1,7 +1,7 @@
 describe('Add Factory', function () {
   'use strict';
   var addFactory;
-  beforeEach(module('myApp.data'));
+  beforeEach(module('myApp.team'));
   beforeEach(inject(function (_addFactory_) {
     // The injector unwraps the underscores (_) from around the parameter names when matching
     addFactory = _addFactory_;
