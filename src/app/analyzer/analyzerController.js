@@ -1,10 +1,10 @@
 (function () {
   'use strict';
-  angular.module('myApp.tradeAnalyzer')
-    .controller('tradeAnalyzerController', TradeAnalyzerController);
-  TradeAnalyzerController.$inject = ['returnTeamFactory', 'tradeValueFactory', 'addPlayersFactory'];
+  angular.module('myApp.analyzer')
+    .controller('analyzerController', AnalyzerController);
+  AnalyzerController.$inject = ['returnTeamFactory', 'tradeValueFactory', 'addPlayersFactory'];
 
-  function TradeAnalyzerController (returnTeamFactory, tradeValueFactory, addPlayersFactory) {
+  function AnalyzerController (returnTeamFactory, tradeValueFactory, addPlayersFactory) {
     this.team1 = returnTeamFactory.getTeamData('team1');
     this.team2 = returnTeamFactory.getTeamData('team2');
     this.updateTeam = function (player, team) {

@@ -11,7 +11,7 @@ describe('Other Team Config', function () {
     $state = $injector.get('$state');
     $location = $injector.get('$location');
     var $templateCache = $injector.get('$templateCache');
-    $templateCache.put('app/pages/otherTeam/otherTeam.html', '');
+    $templateCache.put('app/otherTeam/otherTeam.html', '');
   }));
   it('should respond to otherTeam URL', function () {
     $state.go('otherTeam');

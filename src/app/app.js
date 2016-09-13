@@ -1,7 +1,6 @@
 (function () {
   'use strict';
-  require('./common/teamConfig');
-  require('./tradeValue/tradeValueConfig');
+  require('./common/team/teamConfig');
   require('./yourTeam/yourTeamConfig');
   require('./otherTeam/otherTeamConfig');
   require('./analyzer/analyzerConfig');
@@ -10,6 +9,6 @@
     $urlRouterProvider.otherwise('/yourTeam');
   }
   reroute.$inject = ['$urlRouterProvider'];
-  angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.tradeAnalyzer', 'myApp.tradeValue'])
+  angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
     .config(reroute);
 })();

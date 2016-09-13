@@ -5,12 +5,12 @@
     $stateProvider
       .state('tradeAnalyzer', {
         url: '/tradeAnalyzer',
-        templateUrl: 'app/pages/tradeAnalyzer/tradeAnalyzer.html'
+        templateUrl: 'app/analyzer/analyzer.html'
       });
   }
-
   tradeAnalyzerState.$inject = ['$stateProvider'];
-  angular.module('myApp.tradeAnalyzer', ['ui.router'])
+  angular.module('myApp.analyzer', ['ui.router'])
     .config(tradeAnalyzerState);
-  require('./tradeAnalyzerController');
+  require('./analyzerController');
+  require('./tradeValueFactory');
 }());

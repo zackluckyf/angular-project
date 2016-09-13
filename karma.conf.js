@@ -1,5 +1,7 @@
 // Karma configuration
 // Generated on Tue Aug 02 2016 09:45:20 GMT-0400 (Eastern Daylight Time)
+var webpackConfig = require('./webpack.config.js');
+webpackConfig.entry = {};
 
 module.exports = function (config) {
   config.set({
@@ -13,12 +15,9 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      './vendor/angular/angular.js',
-      './vendor/angular-ui-router/release/angular-ui-router.js',
-      './vendor/angular-mocks/angular-mocks.js',
-      './app/**/*.js',
+      './bundle.js',
       '../tests/unit/**/*.spec.js',
-      '**/*.html'
+      './app/**/*.html'
     ],
 
     // list of files to exclude
@@ -26,7 +25,11 @@ module.exports = function (config) {
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {},
+    preprocessors: {
+      './src/bundle.js': ['webpack']
+    },
+
+    webpack: webpackConfig,
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -50,6 +53,7 @@ module.exports = function (config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
 
+    // Travis Continuous Integration mode
     customLaunchers: {
       Chrome_travis_ci: {
         base: 'Chrome',
@@ -57,7 +61,6 @@ module.exports = function (config) {
       }
     },
 
-    // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
 

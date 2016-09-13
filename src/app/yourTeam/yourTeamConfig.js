@@ -10,7 +10,7 @@
     $stateProvider
       .state('yourTeam', {
         url: '/yourTeam',
-        templateUrl: 'app/pages/yourTeam/yourTeam.html'
+        templateUrl: 'app/yourTeam/yourTeam.html'
       });
   }
   require('./yourTeamController');

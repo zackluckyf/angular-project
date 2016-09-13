@@ -10,7 +10,7 @@ describe('App Config', function () {
     $rootScope = $injector.get('$rootScope');
     $location = $injector.get('$location');
     var $templateCache = $injector.get('$templateCache');
-    $templateCache.put('app/pages/yourTeam/yourTeam.html', '');
+    $templateCache.put('app/yourTeam/yourTeam.html', '');
   }));
   it('should respond to incorrect URL', function () {
     $location.url('/tea');

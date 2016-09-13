@@ -5,7 +5,7 @@
     $stateProvider
       .state('otherTeam', {
         url: '/otherTeam',
-        templateUrl: 'app/pages/otherTeam/otherTeam.html'
+        templateUrl: 'app/otherTeam/otherTeam.html'
       });
   }
   otherTeamState.$inject = ['$stateProvider'];

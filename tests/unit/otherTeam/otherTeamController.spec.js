@@ -1,15 +1,18 @@
 // jasmine
 describe('Other Team Controller', function () {
   'use strict';
-  var scope, controller, returnTeamFactory;
-  beforeEach(module('myApp.team', 'myApp.otherTeam'));
-  beforeEach(inject(function ($controller, $rootScope, _returnTeamFactory_) {
+  var scope, controller, returnTeamFactory, tradeValueFactory;
+  beforeEach(module('myApp.team', 'myApp.otherTeam', 'myApp.analyzer'));
+  beforeEach(inject(function ($controller, $rootScope, _returnTeamFactory_, _tradeValueFactory_) {
     // The injector unwraps the underscores (_) from around the parameter names when matching
     scope = $rootScope.$new();
     returnTeamFactory = _returnTeamFactory_;
-    spyOn(returnTeamFactory, 'getTeamData').and.callThrough();
+    tradeValueFactory = _tradeValueFactory_;
+    spyOn(returnTeamFactory, 'getTeamData');
     controller = $controller('otherTeamController as otc', {
-      $scope: scope
+      $scope: scope,
+      returnTeamFactory: returnTeamFactory,
+      tradeValueFactory: tradeValueFactory
     });
   }));
   it('should get Team data', function () {
