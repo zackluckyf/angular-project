@@ -29,6 +29,11 @@ module.exports = function (config) {
       './src/bundle.js': ['webpack', 'coverage']
     },
 
+    coverageReporter: {
+      type: 'html',
+      dir: '../coverage'
+    },
+
     webpack: webpackConfig,
 
     // test results reporter to use
