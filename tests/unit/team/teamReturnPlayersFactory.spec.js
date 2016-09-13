@@ -1,6 +1,6 @@
 describe('Team Return Players Factory', function () {
   'use strict';
-  var teamPlayersFactory, $httpBackend, $rootScope, expectedResult = [{
+  var returnTeamFactory, $httpBackend, $rootScope, expectedResult = [{
       name: 'Adrian Peterson',
       value: 4
     }, {
@@ -13,11 +13,11 @@ describe('Team Return Players Factory', function () {
     }];
 
   beforeEach(module('myApp.team'));
-  beforeEach(inject(function (_$httpBackend_, _$rootScope_, _teamPlayersFactory_) {
+  beforeEach(inject(function (_$httpBackend_, _$rootScope_, _returnTeamFactory_) {
     // The injector unwraps the underscores (_) from around the parameter names when matching
     $httpBackend = _$httpBackend_;
     $rootScope = _$rootScope_;
-    teamPlayersFactory = _teamPlayersFactory_;
+    returnTeamFactory = _returnTeamFactory_;
   }));
   afterEach(function () {
     $httpBackend.verifyNoOutstandingExpectation();
@@ -25,7 +25,7 @@ describe('Team Return Players Factory', function () {
   });
   it("should return [{name: 'Adrian Peterson', value: 4}, {name: 'Carson Palmer', value: 2}] given team1", function () {
     $httpBackend.when('GET', '/data/teams/1').respond(expectedResult);
-    var promise = teamPlayersFactory.returnPlayers('1');
+    var promise = returnTeamFactory.returnPlayers('1');
     var returnData;
     $httpBackend.flush();
 
@@ -38,7 +38,7 @@ describe('Team Return Players Factory', function () {
   });
   it("should return [{name: 'Antonio Brown', value: 5}] given team2", function () {
     $httpBackend.when('GET', '/data/teams/2').respond(expectedResult2);
-    var promise = teamPlayersFactory.returnPlayers('2');
+    var promise = returnTeamFactory.returnPlayers('2');
     var returnData;
     $httpBackend.flush();
 

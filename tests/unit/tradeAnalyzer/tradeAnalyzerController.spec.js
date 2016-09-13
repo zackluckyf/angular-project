@@ -1,20 +1,20 @@
 // jasmine
 describe('Trade Analyzer Controller', function () {
   'use strict';
-  var scope, controller, teamPlayersFactory;
+  var scope, controller, returnTeamFactory;
   beforeEach(module('myApp.team', 'myApp.tradeAnalyzer'));
-  beforeEach(inject(function ($controller, $rootScope, _teamPlayersFactory_) {
+  beforeEach(inject(function ($controller, $rootScope, _returnTeamFactory_) {
     // The injector unwraps the underscores (_) from around the parameter names when matching
     scope = $rootScope.$new();
-    teamPlayersFactory = _teamPlayersFactory_;
-    spyOn(teamPlayersFactory, 'getTeamData').and.callThrough();
+    returnTeamFactory = _returnTeamFactory_;
+    spyOn(returnTeamFactory, 'getTeamData').and.callThrough();
     controller = $controller('tradeAnalyzerController as tac', {
       $scope: scope
     });
   }));
   it('should get Team data', function () {
-    expect(teamPlayersFactory.getTeamData).toHaveBeenCalledWith('team1');
-    expect(teamPlayersFactory.getTeamData).toHaveBeenCalledWith('team2');
+    expect(returnTeamFactory.getTeamData).toHaveBeenCalledWith('team1');
+    expect(returnTeamFactory.getTeamData).toHaveBeenCalledWith('team2');
   });
   it('should not let undefined be added to a team for example Eli Tanning', function () {
     var team1 = [{

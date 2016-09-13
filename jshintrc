@@ -4,6 +4,9 @@
     // Angular
     "angular": false,
 
+    // CommonJS
+    "require": false,
+
     // Angular mocks
     "module": false,
     "inject": false,

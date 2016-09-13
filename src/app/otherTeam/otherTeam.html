@@ -1,0 +1,19 @@
+<div id="page2">
+    <div class="sub-title">
+        <h3>Other Team</h3>
+    </div>
+    <div class="player-lists myRow ng-cloak" ng-controller='otherTeamController as otc'>
+        <ul class="team2 players">
+            <li ng-repeat='player in otc.team2'>
+                <span>{{player.name}}</span>
+                <span><button ng-click="otc.team2.splice($index,1)" type="button" class="remove" name="button">Remove</button></span>
+            </li>
+            <input type-ahead class='player-inputs' ng-model='otc.player2' placeholder='add player' type="text" value="">
+            <span><button ng-click='otc.updateTeam(otc.player2, otc.team2)' type="button"  class="add" name="button">Add</button></span>
+        </ul>
+        <div class="submit-button myRow">
+            <button><a ui-sref="yourTeam">Your Team</a></button>
+            <button class="analyze" ng-click='otc.tradeAnalysis(otc.team1, otc.team2)'><a ui-sref="tradeAnalyzer">Analyze Trade!</a></button>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,14 @@
-xdescribe('Player Functions', function () {
-  it('should have a playerData method', function () {
-    expect(playerData).toBeDefined();
+var request = require('request');
+
+var base_url = 'http://localhost:8080/';
+
+describe('Hello World Server', function () {
+  describe('GET /', function () {
+    it('returns status code 200', function (done) {
+      request.get(base_url, function (error, response, body) {
+        expect(response.statusCode).toBe(200);
+        done();
+      });
+    });
   });
 });
