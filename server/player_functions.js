@@ -2,7 +2,7 @@
 
 var http = require('http');
 var templates = require('./manage_file');
-var playerNames;
+var nflPlayers = nflPlayers || playerData();
 
 function playerData () {
   var url = 'http://www.fantasyfootballnerd.com/service/players/json/dr4mykguqpd9/';
@@ -14,7 +14,7 @@ function playerData () {
     });
     response.on('end', function (err) {
       data = JSON.parse(buffer);
-      writeData(data.Players);
+      return writeData(data.Players);
     });
   }).on('error', (e) => {
     console.log(`Got error: ${e.message}`);
@@ -24,20 +24,19 @@ function playerData () {
 function writeData (data) {
   'use strict';
   console.log('started parse');
-  var nflPlayers = data.filter(function (player) {
+  nflPlayers = data.filter(function (player) {
     return player.active === '1';
   }).map(function (player) {
     return player.displayName;
   });
-  templates.write('nflPlayers.txt', nflPlayers);
+  return nflPlayers;
 }
 
 function readData (query) {
   query = query.toLowerCase;
-  playerNames = playerNames || templates.read('nflPlayers.txt').split(',');
-  return playerNames.filter(function (player) {
+  return nflPlayers.filter(function (player) {
     player = player.toLowerCase();
-    if (player.includes(query)) {
+    if (player === query) {
       return player;
     }
   });
@@ -46,6 +45,5 @@ function readData (query) {
 module.exports = {
   readData: readData,
   writeData: writeData,
-  playerData: playerData,
-  playerNames: playerNames
+  playerData: playerData
 };
