@@ -1,31 +1,23 @@
 Global Dependencies
 
-npm install gulp -g
+npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack, istanbul
 
-npm install karma -g
+Go to installed packages and change tree view to not hide .gitignore files
 
-npm install jasmine -g
+Have finally gotten a working code coverage.
 
-npm install karma-jasmine -g
+Issues with it:
 
-npm install protractor -g
+The whole bundle includes a lot of angular I obviously don't test. Sourcemaps?
 
-Next Steps
+webpackConfig has something in there that screws tests up! Don't run webpack, have Dane help!
 
-npm install webpack -g
-
-npm install webpack --save-dev
-
-npm install webpack-dev-server -g 
+Karma coverage reporter which fails test wise right now is commented out to get green CI build
 
 pages(aka features) in app contains angular code, the issue with multiple controllers popped up,
-need to have Dane explain how to send state from one page to the next.
+need to config each one on load with state.
 
 Setup Server
-
-it does
-
-it should
 
   -be queryable
 
