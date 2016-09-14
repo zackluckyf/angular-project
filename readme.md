@@ -16,16 +16,14 @@ npm install webpack -g
 
 npm install webpack --save-dev
 
-npm install webpack-dev-server -g 
+npm install istanbul -g
+
+Go to installed packages and change tree view to not hide .gitignore files
 
 pages(aka features) in app contains angular code, the issue with multiple controllers popped up,
 need to have Dane explain how to send state from one page to the next.
 
 Setup Server
-
-it does
-
-it should
 
   -be queryable
 

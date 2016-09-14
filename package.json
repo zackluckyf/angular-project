@@ -37,6 +37,7 @@
     "http-server": "^0.9.0",
     "httpdispatcher": "^1.0.0",
     "istanbul": "^0.4.5",
+    "istanbul-instrumenter-loader": "^0.2.0",
     "jasmine": "^2.4.1",
     "jasmine-core": "^2.4.1",
     "jasmine-node": "^1.14.5",
