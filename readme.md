@@ -4,7 +4,7 @@ npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack, istanbu
 
 Issues with it:
 
-integrate player functions into src/app/common
+integrate player functions into src/app/common and then write tests for them
 
 pages(aka features) in app contains angular code, the issue with multiple controllers popped up,
 need to config each one on load with state.
