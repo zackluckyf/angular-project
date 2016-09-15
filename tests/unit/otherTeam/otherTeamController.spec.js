@@ -8,7 +8,7 @@ describe('Other Team Controller', function () {
     scope = $rootScope.$new();
     returnTeamFactory = _returnTeamFactory_;
     tradeValueFactory = _tradeValueFactory_;
-    spyOn(returnTeamFactory, 'getTeamData');
+    spyOn(returnTeamFactory, 'returnTeam');
     controller = $controller('otherTeamController as otc', {
       $scope: scope,
       returnTeamFactory: returnTeamFactory,
@@ -16,7 +16,7 @@ describe('Other Team Controller', function () {
     });
   }));
   it('should get Team data', function () {
-    expect(returnTeamFactory.getTeamData).toHaveBeenCalledWith('team2');
+    expect(returnTeamFactory.returnTeam).toHaveBeenCalledWith('team2');
   });
   it('should add a player to the correct team when using updateTeam', function () {
     var team2 = [{

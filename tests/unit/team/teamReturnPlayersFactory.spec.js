@@ -25,7 +25,7 @@ describe('Team Return Players Factory', function () {
   });
   it("should return [{name: 'Adrian Peterson', value: 4}, {name: 'Carson Palmer', value: 2}] given team1", function () {
     $httpBackend.when('GET', '/data/teams/1').respond(expectedResult);
-    var promise = returnTeamFactory.returnPlayers('1');
+    var promise = returnTeamFactory.returnTeam('1');
     var returnData;
     $httpBackend.flush();
 
@@ -38,7 +38,7 @@ describe('Team Return Players Factory', function () {
   });
   it("should return [{name: 'Antonio Brown', value: 5}] given team2", function () {
     $httpBackend.when('GET', '/data/teams/2').respond(expectedResult2);
-    var promise = returnTeamFactory.returnPlayers('2');
+    var promise = returnTeamFactory.returnTeam('2');
     var returnData;
     $httpBackend.flush();
 

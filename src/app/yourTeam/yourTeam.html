@@ -3,6 +3,9 @@
         <h3>Your Team</h3>
     </div>
     <div class="player-lists myRow ng-cloak" ng-controller='yourTeamController as ytc'>
+      <div ng-repeat='team in ytc.teams'>
+        {{team}}
+      </div>
         <ul class="team1 players">
             <li ng-repeat='player in ytc.team1'>
                 <span>{{player.name}}</span>

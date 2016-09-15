@@ -7,13 +7,13 @@ describe('Your Team Controller', function () {
     // The injector unwraps the underscores (_) from around the parameter names when matching
     scope = $rootScope.$new();
     returnTeamFactory = _returnTeamFactory_;
-    spyOn(returnTeamFactory, 'getTeamData').and.callThrough();
+    spyOn(returnTeamFactory, 'returnTeam').and.callThrough();
     controller = $controller('yourTeamController as ytc', {
       $scope: scope
     });
   }));
   it('should get Team data', function () {
-    expect(returnTeamFactory.getTeamData).toHaveBeenCalledWith('team1');
+    expect(returnTeamFactory.returnTeam).toHaveBeenCalledWith('team1');
   });
   it('should not let undefined be added to a team for example Eli Tanning', function () {
     var team1 = [{

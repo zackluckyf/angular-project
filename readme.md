@@ -4,14 +4,14 @@ npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack, istanbu
 
 Issues with it:
 
-integrate player functions into src/app/common and then write tests for them
+integrate player functions into src/app/common/team and then write tests for them
 
-pages(aka features) in app contains angular code, the issue with multiple controllers popped up,
+pages(aka features) in src/app contains angular code, the issue with multiple controllers popped up,
 need to config each one on load with state.
 
 Setup Server
 
-  -be queryable
+  -be queryable for team
 
   -maintain state between pages
 

@@ -7,14 +7,14 @@ describe('Trade Analyzer Controller', function () {
     // The injector unwraps the underscores (_) from around the parameter names when matching
     scope = $rootScope.$new();
     returnTeamFactory = _returnTeamFactory_;
-    spyOn(returnTeamFactory, 'getTeamData').and.callThrough();
+    spyOn(returnTeamFactory, 'returnTeam').and.callThrough();
     controller = $controller('analyzerController as ac', {
       $scope: scope
     });
   }));
   it('should get Team data', function () {
-    expect(returnTeamFactory.getTeamData).toHaveBeenCalledWith('team1');
-    expect(returnTeamFactory.getTeamData).toHaveBeenCalledWith('team2');
+    expect(returnTeamFactory.returnTeam).toHaveBeenCalledWith('team1');
+    expect(returnTeamFactory.returnTeam).toHaveBeenCalledWith('team2');
   });
   it('should not let undefined be added to a team for example Eli Tanning', function () {
     var team1 = [{

@@ -6,7 +6,7 @@
   OtherTeamController.$inject = ['returnTeamFactory', 'tradeValueFactory', 'addPlayersFactory'];
 
   function OtherTeamController (returnTeamFactory, tradeValueFactory, addPlayersFactory) {
-    this.team2 = returnTeamFactory.getTeamData('team2');
+    this.team2 = returnTeamFactory.returnTeam('team2');
     this.updateTeam = function (player, team) {
       addPlayersFactory.addPlayer(player, team);
       // this clears the input fields after a player is added!

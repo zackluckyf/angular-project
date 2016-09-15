@@ -39583,33 +39583,13 @@
 	  returnTeamFactory.$inject = ['$http'];
 	
 	  function returnTeamFactory ($http) {
-	    function getPlayers (response) {
-	      return response.data;
-	    }
-	
-	    function returnPlayers (team) {
-	      return $http.get('/data/teams/' + team).then(getPlayers);
-	    }
-	
-	    function getData (team) {
-	      if (team === 'team1') {
-	        return [{
-	          name: 'Adrian Peterson',
-	          value: 4
-	        }, {
-	          name: 'Carson Palmer',
-	          value: 2
-	        }];
-	      } else if (team === 'team2') {
-	        return [{
-	          name: 'Antonio Brown',
-	          value: 5
-	        }];
-	      }
+	    function returnTeam (team) {
+	      return $http.get('http://localhost:8888/teams').then(function (res) {
+	        return res.data;
+	      });
 	    }
 	    return {
-	      getTeamData: getData,
-	      returnPlayers: returnPlayers
+	      returnTeam: returnTeam
 	    };
 	  }
 	}());
@@ -39619,23 +39599,51 @@
 /* 7 */
 /***/ function(module, exports) {
 
+	/*jshint esversion: 6 */
+	
 	(function () {
 	  'use strict';
 	  angular.module('myApp.team')
 	    .factory('addPlayersFactory', addPlayersFactory);
 	
 	  function addPlayersFactory () {
-	    var player = {
-	      'Adrian Peterson': 4,
-	      'Antonio Brown': 5,
-	      'A.J. Green': 3,
-	      'Carson Palmer': 2,
-	      'Eli Manning': 1,
-	      'Phillip Rivers': 1
-	    };
+	    var nflPlayers = [];
+	
+	    playerData.$inject = ['$http'];
+	
+	    function playerData ($http) {
+	      var url = 'http://www.fantasyfootballnerd.com/service/players/json/dr4mykguqpd9/';
+	      var data;
+	      var request = $http.get(url, function (response) {
+	        var buffer = '';
+	        response.on('data', function (chunk) {
+	          buffer += chunk;
+	        });
+	        response.on('end', function (err) {
+	          data = JSON.parse(buffer);
+	          return writeData(data.Players);
+	        });
+	      }).on('error', (e) => {
+	        console.log(`Got error: ${e.message}`);
+	      });
+	    }
+	
+	    function writeData (data) {
+	      console.log('started parse');
+	      nflPlayers = data.filter(function (player) {
+	        return player.active === '1';
+	      }).map(function (player) {
+	        return player.displayName ? player.displayName.toLowerCase() : '';
+	      });
+	      return nflPlayers;
+	    }
 	
 	    function addPlayer (newPlayer, team) {
-	      if (player[newPlayer] && Object.keys(team).length < 5) {
+	      if (!nflPlayers) {
+	        nflPlayers = playerData();
+	      }
+	      var playerPosition = nflPlayers.indexof(newPlayer);
+	      if (playerPosition !== -1 && Object.keys(team).length < 5) {
 	        team.push({
 	          name: newPlayer,
 	          value: player[newPlayer]
@@ -39685,7 +39693,10 @@
 	  YourTeamController.$inject = ['returnTeamFactory', 'addPlayersFactory'];
 	
 	  function YourTeamController (returnTeamFactory, addPlayersFactory) {
-	    this.team1 = returnTeamFactory.getTeamData('team1');
+	    var vm = this;
+	    returnTeamFactory.returnTeam('team1').then(function (data) {
+	      vm.teams = data;
+	    });
 	    this.updateTeam = function (player, team) {
 	      addPlayersFactory.addPlayer(player, team);
 	      // this clears the input fields after a player is added!
@@ -39729,7 +39740,7 @@
 	  OtherTeamController.$inject = ['returnTeamFactory', 'tradeValueFactory', 'addPlayersFactory'];
 	
 	  function OtherTeamController (returnTeamFactory, tradeValueFactory, addPlayersFactory) {
-	    this.team2 = returnTeamFactory.getTeamData('team2');
+	    this.team2 = returnTeamFactory.returnTeam('team2');
 	    this.updateTeam = function (player, team) {
 	      addPlayersFactory.addPlayer(player, team);
 	      // this clears the input fields after a player is added!
@@ -39777,8 +39788,8 @@
 	  AnalyzerController.$inject = ['returnTeamFactory', 'tradeValueFactory', 'addPlayersFactory'];
 	
 	  function AnalyzerController (returnTeamFactory, tradeValueFactory, addPlayersFactory) {
-	    this.team1 = returnTeamFactory.getTeamData('team1');
-	    this.team2 = returnTeamFactory.getTeamData('team2');
+	    this.team1 = returnTeamFactory.returnTeam('team1');
+	    this.team2 = returnTeamFactory.returnTeam('team2');
 	    this.updateTeam = function (player, team) {
 	      addPlayersFactory.addPlayer(player, team);
 	      // this clears the input fields after a player is added!

@@ -6,7 +6,10 @@
   YourTeamController.$inject = ['returnTeamFactory', 'addPlayersFactory'];
 
   function YourTeamController (returnTeamFactory, addPlayersFactory) {
-    this.team1 = returnTeamFactory.getTeamData('team1');
+    var vm = this;
+    returnTeamFactory.returnTeam('team1').then(function (data) {
+      vm.teams = data;
+    });
     this.updateTeam = function (player, team) {
       addPlayersFactory.addPlayer(player, team);
       // this clears the input fields after a player is added!
