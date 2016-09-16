@@ -39543,19 +39543,33 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	(function () {
-	  'use strict';
-	  __webpack_require__(5);
-	  __webpack_require__(8);
-	  __webpack_require__(10);
-	  __webpack_require__(12);
+	(function() {
+	    'use strict';
+	    __webpack_require__(5);
+	    __webpack_require__(8);
+	    __webpack_require__(10);
+	    __webpack_require__(12);
 	
-	  function reroute ($urlRouterProvider) {
-	    $urlRouterProvider.otherwise('/yourTeam');
-	  }
-	  reroute.$inject = ['$urlRouterProvider'];
-	  angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
-	    .config(reroute);
+	    function reroute($urlRouterProvider) {
+	        $urlRouterProvider.otherwise('/yourTeam');
+	    }
+	    // get empty values for the teams to start and then
+	    // setup the controllers to update the backend on page change?
+	    // then ahve the controllers get the state from the backend?
+	    // array of objects I think since I'm using ng-repeat
+	    this.team1 = [];
+	    this.team2 = [];
+	    returnTeamFactory.returnTeam().then(function(data) {
+	        vm.team1 = data;
+	    });
+	    returnTeamFactory.returnTeam().then(function(data) {
+	        vm.team2 = data;
+	    });
+	    reroute.$inject = ['$urlRouterProvider'];
+	    angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
+	        .config(reroute)
+	        .value(team1)
+	        .value(team2);
 	})();
 
 
@@ -39575,23 +39589,23 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	(function () {
-	  'use strict';
-	  angular.module('myApp.team')
-	    .factory('returnTeamFactory', returnTeamFactory);
+	(function() {
+	    'use strict';
+	    angular.module('myApp.team')
+	        .factory('returnTeamFactory', returnTeamFactory);
 	
-	  returnTeamFactory.$inject = ['$http'];
+	    returnTeamFactory.$inject = ['$http'];
 	
-	  function returnTeamFactory ($http) {
-	    function returnTeam (team) {
-	      return $http.get('http://localhost:8888/teams').then(function (res) {
-	        return res.data;
-	      });
+	    function returnTeamFactory($http) {
+	        function returnTeam() {
+	            return $http.get('http://localhost:8888/teams').then(function(res) {
+	                return res.data;
+	            });
+	        }
+	        return {
+	            returnTeam: returnTeam
+	        };
 	    }
-	    return {
-	      returnTeam: returnTeam
-	    };
-	  }
 	}());
 
 
@@ -39601,60 +39615,62 @@
 
 	/*jshint esversion: 6 */
 	
-	(function () {
-	  'use strict';
-	  angular.module('myApp.team')
-	    .factory('addPlayersFactory', addPlayersFactory);
+	(function() {
+	    'use strict';
+	    angular.module('myApp.team')
+	        .factory('addPlayersFactory', addPlayersFactory);
 	
-	  function addPlayersFactory () {
-	    var nflPlayers = [];
+	    function addPlayersFactory() {
+	        var nflPlayers = [];
 	
-	    playerData.$inject = ['$http'];
+	        playerData.$inject = ['$http'];
 	
-	    function playerData ($http) {
-	      var url = 'http://www.fantasyfootballnerd.com/service/players/json/dr4mykguqpd9/';
-	      var data;
-	      var request = $http.get(url, function (response) {
-	        var buffer = '';
-	        response.on('data', function (chunk) {
-	          buffer += chunk;
-	        });
-	        response.on('end', function (err) {
-	          data = JSON.parse(buffer);
-	          return writeData(data.Players);
-	        });
-	      }).on('error', (e) => {
-	        console.log(`Got error: ${e.message}`);
-	      });
+	        function playerData($http) {
+	            var url = 'http://www.fantasyfootballnerd.com/service/players/json/dr4mykguqpd9/';
+	            var data;
+	            var request = $http.get(url, function(response) {
+	                var buffer = '';
+	                response.on('data', function(chunk) {
+	                    buffer += chunk;
+	                });
+	                response.on('end', function(err) {
+	                    data = JSON.parse(buffer);
+	                    return parsePlayers(data.Players);
+	                });
+	            }).on('error', (e) => {
+	                console.log(`Got error: ${e.message}`);
+	            });
+	        }
+	
+	        function parsePlayers(data) {
+	            console.log('started parse');
+	            nflPlayers = data.filter(function(player) {
+	                return player.active === '1';
+	            }).map(function(player) {
+	                return player.displayName.toLowerCase();
+	            });
+	            return nflPlayers;
+	        }
+	
+	        function addPlayer(newPlayer, team) {
+	            newPlayer = newPlayer.toLowerCase();
+	            if (!nflPlayers) {
+	                nflPlayers = playerData();
+	            }
+	            var newPlayerValue = Math.floor((newPlayer.length() / 4));
+	            var playerPosition = nflPlayers.indexof(newPlayer);
+	            if (playerPosition !== -1 && Object.keys(team).length < 5) {
+	                team.push({
+	                    name: newPlayer,
+	                    value: newPlayerValue
+	                });
+	            }
+	        }
+	
+	        return {
+	            addPlayer: addPlayer
+	        };
 	    }
-	
-	    function writeData (data) {
-	      console.log('started parse');
-	      nflPlayers = data.filter(function (player) {
-	        return player.active === '1';
-	      }).map(function (player) {
-	        return player.displayName ? player.displayName.toLowerCase() : '';
-	      });
-	      return nflPlayers;
-	    }
-	
-	    function addPlayer (newPlayer, team) {
-	      if (!nflPlayers) {
-	        nflPlayers = playerData();
-	      }
-	      var playerPosition = nflPlayers.indexof(newPlayer);
-	      if (playerPosition !== -1 && Object.keys(team).length < 5) {
-	        team.push({
-	          name: newPlayer,
-	          value: player[newPlayer]
-	        });
-	      }
-	    }
-	
-	    return {
-	      addPlayer: addPlayer
-	    };
-	  }
 	}());
 
 
@@ -39685,24 +39701,27 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	(function () {
-	  'use strict';
-	  angular.module('myApp.yourTeam')
-	    .controller('yourTeamController', YourTeamController);
+	(function() {
+	    'use strict';
+	    angular.module('myApp.yourTeam')
+	        .controller('yourTeamController', YourTeamController);
 	
-	  YourTeamController.$inject = ['returnTeamFactory', 'addPlayersFactory'];
+	    YourTeamController.$inject = ['returnTeamFactory', 'addPlayersFactory'];
 	
-	  function YourTeamController (returnTeamFactory, addPlayersFactory) {
-	    var vm = this;
-	    returnTeamFactory.returnTeam('team1').then(function (data) {
-	      vm.teams = data;
-	    });
-	    this.updateTeam = function (player, team) {
-	      addPlayersFactory.addPlayer(player, team);
-	      // this clears the input fields after a player is added!
-	      this.player1 = '';
-	    };
-	  }
+	    function YourTeamController(returnTeamFactory, addPlayersFactory) {
+	        var vm = this;
+	        // below function should be in the config
+	        // there should also be one for team 2
+	        // then each controller can reference the values for state
+	        returnTeamFactory.returnTeam().then(function(data) {
+	            vm.team1 = data;
+	        });
+	        this.updateTeam = function(player, team) {
+	            addPlayersFactory.addPlayer(player, team);
+	            // this clears the input fields after a player is added!
+	            this.player1 = '';
+	        };
+	    }
 	}());
 
 

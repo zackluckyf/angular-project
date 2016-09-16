@@ -2,23 +2,23 @@ Global Dependencies
 
 npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack, istanbul
 
-Issues with it:
+Next Steps
+
+Fix the server by removing the .git files from it
+
+Setup value objects in the app.js file for the myApp module, controllers should be able to
+both get the data from this and change it
+
+Look at the yourTeam feature and mimic the controller setup to fix other team and analyzer
 
 Finish setting up the front end to retrieve data from the database
 
-integrate player functions into src/app/common/team and then write tests for them
+with the different pages, config each controller to load with state from the back end.
 
-pages(aka features) in src/app contains angular code, the issue with multiple controllers popped up,
-need to config each one on load with state from the back end.
-
-Setup Server
-
-  -be queryable for team
-
-  -maintain state between pages
+Setup Server to hold state
 
 Fix HTML and SCSS
 
-Create a typeahead directive utilizing the node server (optional)
+Create a typeahead directive (optional)
 
 Create a toggle directive (loading page, also optional)
