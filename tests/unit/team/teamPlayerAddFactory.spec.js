@@ -1,23 +1,22 @@
-describe('Team Player Add Factory', function () {
+fdescribe('Team Player Add Factory', function () {
   'use strict';
-  var addPlayersFactory;
+  var addPlayersFactory, $httpBackend;
   beforeEach(module('myApp.team'));
-  beforeEach(inject(function (_addPlayersFactory_) {
+  beforeEach(inject(function (_addPlayersFactory_, _$httpBackend_, playerurl) {
     // The injector unwraps the underscores (_) from around the parameter names when matching
     addPlayersFactory = _addPlayersFactory_;
+    $httpBackend = _$httpBackend_;
+    $httpBackend.when('GET', playerurl).respond({'Players': [{'playerId': '1','active': '1','jersey': '0','lname': 'Ainge','fname': 'Erik','displayName': 'Erik Ainge','team': 'NYJ','position': 'QB','height': '','weight': '','dob': '0000-00-00','college': ''}]});
   }));
-  it('should return an Eli Manning object when given Eli Manning', function () {
-    var team2 = [{
-      name: 'Antonio Brown',
-      value: 5
-    }];
-    addPlayersFactory.addPlayer('Eli Manning', team2);
-    expect(team2).toEqual([{
-      name: 'Antonio Brown',
-      value: 5
-    }, {
-      name: 'Eli Manning',
-      value: 1
-    }]);
+  afterEach(function () {
+    $httpBackend.verifyNoOutstandingExpectation();
+    $httpBackend.verifyNoOutstandingRequest();
+  });
+
+  it('should call fantasyfootballnerd when addPlayer is called', function () {
+    var team = [];
+    addPlayersFactory.loadAndAddPlayer('Erik Ainge', team);
+    $httpBackend.flush();
+    expect(team).toEqual([{ name: 'erik ainge', value: 2 }]);
   });
 });

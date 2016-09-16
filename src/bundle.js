@@ -39557,20 +39557,18 @@
 	  // setup the controllers to update the backend on page change?
 	  // then ahve the controllers get the state from the backend?
 	  // array of objects I think since I'm using ng-repeat
+	  // var vm = this
+	  function setupService () {
+	    return {
+	      teamState: teamState,
+	      updateTeam: updateTeam
+	    };
+	  }
 	
-	  // this.team1 = []
-	  // this.team2 = []
-	  // returnTeamFactory.returnTeam().then(function(data) {
-	  //     vm.team1 = data
-	  // })
-	  // returnTeamFactory.returnTeam().then(function(data) {
-	  //     vm.team2 = data
-	  // })
 	  reroute.$inject = ['$urlRouterProvider'];
 	  angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
-	    .config(reroute);
-	// .value(team1)
-	// .value(team2)
+	    .config(reroute)
+	    .factory('setupService', setupService);
 	})();
 
 
@@ -39580,7 +39578,8 @@
 
 	(function () {
 	  'use strict';
-	  angular.module('myApp.team', []);
+	  angular.module('myApp.team', [])
+	    .constant('playerurl', 'http://www.fantasyfootballnerd.com/service/players/json/dr4mykguqpd9/');
 	  __webpack_require__(6);
 	  __webpack_require__(7);
 	}());
@@ -39590,23 +39589,23 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	(function() {
-	    'use strict';
-	    angular.module('myApp.team')
-	        .factory('returnTeamFactory', returnTeamFactory);
+	(function () {
+	  'use strict';
+	  angular.module('myApp.team')
+	    .factory('returnTeamFactory', returnTeamFactory);
 	
-	    returnTeamFactory.$inject = ['$http'];
+	  returnTeamFactory.$inject = ['$http'];
 	
-	    function returnTeamFactory($http) {
-	        function returnTeam() {
-	            return $http.get('http://localhost:8888/teams').then(function(res) {
-	                return res.data;
-	            });
-	        }
-	        return {
-	            returnTeam: returnTeam
-	        };
+	  function returnTeamFactory ($http) {
+	    function returnTeam () {
+	      return $http.get('http://localhost:8888/teams').then(function (res) {
+	        return res.data;
+	      });
 	    }
+	    return {
+	      returnTeam: returnTeam
+	    };
+	  }
 	}());
 
 
@@ -39616,62 +39615,52 @@
 
 	/*jshint esversion: 6 */
 	
-	(function() {
-	    'use strict';
-	    angular.module('myApp.team')
-	        .factory('addPlayersFactory', addPlayersFactory);
+	(function () {
+	  'use strict';
+	  angular.module('myApp.team')
+	    .factory('addPlayersFactory', addPlayersFactory);
 	
-	    function addPlayersFactory() {
-	        var nflPlayers = [];
+	  addPlayersFactory.$inject = ['$http', 'playerurl'];
+	  function addPlayersFactory ($http, playerurl) {
+	    var nflPlayers = [];
 	
-	        playerData.$inject = ['$http'];
-	
-	        function playerData($http) {
-	            var url = 'http://www.fantasyfootballnerd.com/service/players/json/dr4mykguqpd9/';
-	            var data;
-	            var request = $http.get(url, function(response) {
-	                var buffer = '';
-	                response.on('data', function(chunk) {
-	                    buffer += chunk;
-	                });
-	                response.on('end', function(err) {
-	                    data = JSON.parse(buffer);
-	                    return parsePlayers(data.Players);
-	                });
-	            }).on('error', (e) => {
-	                console.log(`Got error: ${e.message}`);
-	            });
-	        }
-	
-	        function parsePlayers(data) {
-	            console.log('started parse');
-	            nflPlayers = data.filter(function(player) {
-	                return player.active === '1';
-	            }).map(function(player) {
-	                return player.displayName.toLowerCase();
-	            });
-	            return nflPlayers;
-	        }
-	
-	        function addPlayer(newPlayer, team) {
-	            newPlayer = newPlayer.toLowerCase();
-	            if (!nflPlayers) {
-	                nflPlayers = playerData();
-	            }
-	            var newPlayerValue = Math.floor((newPlayer.length() / 4));
-	            var playerPosition = nflPlayers.indexof(newPlayer);
-	            if (playerPosition !== -1 && Object.keys(team).length < 5) {
-	                team.push({
-	                    name: newPlayer,
-	                    value: newPlayerValue
-	                });
-	            }
-	        }
-	
-	        return {
-	            addPlayer: addPlayer
-	        };
+	    function parsePlayers (data) {
+	      nflPlayers = data.filter(function (player) {
+	        return player.active === '1';
+	      }).map(function (player) {
+	        return player.displayName.toLowerCase();
+	      });
 	    }
+	
+	    function loadNflPlayers () {
+	      return $http.get(playerurl).then(function (response) {
+	        return response.data.Players;
+	      }).then(parsePlayers);
+	    }
+	    function addPlayer (newPlayer, team) {
+	      var newPlayerValue = Math.floor((newPlayer.length / 4));
+	      var playerPosition = nflPlayers.indexOf(newPlayer);
+	      if (playerPosition !== -1 && Object.keys(team).length < 5) {
+	        team.push({
+	          name: newPlayer,
+	          value: newPlayerValue
+	        });
+	      }
+	    }
+	    function loadAndAddPlayer (newPlayer, team) {
+	      newPlayer = newPlayer.toLowerCase();
+	      if (nflPlayers.length < 1) {
+	        loadNflPlayers().then(function () {
+	          addPlayer(newPlayer, team);
+	        });
+	      }
+	      addPlayer(newPlayer, team);
+	    }
+	
+	    return {
+	      loadAndAddPlayer: loadAndAddPlayer
+	    };
+	  }
 	}());
 
 
@@ -39702,27 +39691,23 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	(function() {
-	    'use strict';
-	    angular.module('myApp.yourTeam')
-	        .controller('yourTeamController', YourTeamController);
+	(function () {
+	  'use strict';
+	  angular.module('myApp.yourTeam')
+	    .controller('yourTeamController', YourTeamController);
 	
-	    YourTeamController.$inject = ['returnTeamFactory', 'addPlayersFactory'];
+	  YourTeamController.$inject = ['returnTeamFactory', 'addPlayersFactory'];
 	
-	    function YourTeamController(returnTeamFactory, addPlayersFactory) {
-	        var vm = this;
-	        // below function should be in the config
-	        // there should also be one for team 2
-	        // then each controller can reference the values for state
-	        returnTeamFactory.returnTeam().then(function(data) {
-	            vm.team1 = data;
-	        });
-	        this.updateTeam = function(player, team) {
-	            addPlayersFactory.addPlayer(player, team);
-	            // this clears the input fields after a player is added!
-	            this.player1 = '';
-	        };
-	    }
+	  function YourTeamController (returnTeamFactory, addPlayersFactory) {
+	    var vm = this;
+	
+	    this.updateTeam = function (player, team) {
+	      addPlayersFactory.addPlayer(player, team);
+	      // this clears the input fields after a player is added!
+	      this.player1 = '';
+	    };
+	    this.updateBackend = function () {};
+	  }
 	}());
 
 

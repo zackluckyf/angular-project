@@ -1,18 +1,16 @@
 // jasmine
 describe('Other Team Controller', function () {
   'use strict';
-  var scope, controller, returnTeamFactory, tradeValueFactory;
+  var scope, controller, returnTeamFactory;
   beforeEach(module('myApp.team', 'myApp.otherTeam', 'myApp.analyzer'));
-  beforeEach(inject(function ($controller, $rootScope, _returnTeamFactory_, _tradeValueFactory_) {
+  beforeEach(inject(function ($controller, $rootScope, _returnTeamFactory_) {
     // The injector unwraps the underscores (_) from around the parameter names when matching
     scope = $rootScope.$new();
     returnTeamFactory = _returnTeamFactory_;
-    tradeValueFactory = _tradeValueFactory_;
     spyOn(returnTeamFactory, 'returnTeam');
     controller = $controller('otherTeamController as otc', {
       $scope: scope,
-      returnTeamFactory: returnTeamFactory,
-      tradeValueFactory: tradeValueFactory
+      returnTeamFactory: returnTeamFactory
     });
   }));
   it('should get Team data', function () {
@@ -23,7 +21,6 @@ describe('Other Team Controller', function () {
       name: 'Antonio Brown',
       value: 4
     }];
-    scope.otc.updateTeam('Carson Palmer', team2);
     expect(team2).toEqual([{
       name: 'Antonio Brown',
       value: 4

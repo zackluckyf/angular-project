@@ -13,17 +13,15 @@
   // then ahve the controllers get the state from the backend?
   // array of objects I think since I'm using ng-repeat
   // var vm = this
-  // this.team1 = []
-  // this.team2 = []
-  // returnTeamFactory.returnTeam().then(function(data) {
-  //     vm.team1 = data
-  // })
-  // returnTeamFactory.returnTeam().then(function(data) {
-  //     vm.team2 = data
-  // })
+  function setupService () {
+    return {
+      teamState: teamState,
+      updateTeam: updateTeam
+    };
+  }
+
   reroute.$inject = ['$urlRouterProvider'];
   angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
-    .config(reroute);
-// .value(team1)
-// .value(team2)
+    .config(reroute)
+    .factory('setupService', setupService);
 })();

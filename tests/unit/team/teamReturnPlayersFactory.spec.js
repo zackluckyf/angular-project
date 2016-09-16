@@ -28,7 +28,6 @@ describe('Team Return Players Factory', function () {
     var promise = returnTeamFactory.returnTeam('1');
     var returnData;
     $httpBackend.flush();
-
     function cb (data) {
       returnData = data;
     }
