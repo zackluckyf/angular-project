@@ -1,5 +1,5 @@
-var path = require('path');
 var webpack = require('webpack');
+var path = require('path');
 module.exports = {
   // this is where it starts the process of mapping the project dependencies
   entry: './src/index.js',
@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: [
     new webpack.ResolverPlugin(
-      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('.bower.json', ['main'])
+      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
     )
   ]
 };

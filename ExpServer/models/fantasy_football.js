@@ -1,9 +1,10 @@
 var connection = require('../connection');
 
 function Fantasy () {
+  'use strict';
   this.getTeam = function (res) {
     connection.acquire(function (err, con) {
-      con.query('select name from teams', function (err, result) {
+      con.query('select * from teams', function (err, result) {
         con.release();
         res.send(result);
       });

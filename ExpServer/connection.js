@@ -1,12 +1,11 @@
 var mysql = require('mysql');
-
 function Connection () {
   this.pool = null;
 
   this.init = function () {
     this.pool = mysql.createPool({
       connectionLimit: 10,
-      host: 'http://localhost:8888',
+      host: 'localhost',
       user: 'admin',
       password: 'harrier',
       database: 'fantasy_football'

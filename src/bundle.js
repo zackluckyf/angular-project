@@ -39543,33 +39543,34 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	(function() {
-	    'use strict';
-	    __webpack_require__(5);
-	    __webpack_require__(8);
-	    __webpack_require__(10);
-	    __webpack_require__(12);
+	(function () {
+	  'use strict';
+	  __webpack_require__(5);
+	  __webpack_require__(8);
+	  __webpack_require__(10);
+	  __webpack_require__(12);
 	
-	    function reroute($urlRouterProvider) {
-	        $urlRouterProvider.otherwise('/yourTeam');
-	    }
-	    // get empty values for the teams to start and then
-	    // setup the controllers to update the backend on page change?
-	    // then ahve the controllers get the state from the backend?
-	    // array of objects I think since I'm using ng-repeat
-	    this.team1 = [];
-	    this.team2 = [];
-	    returnTeamFactory.returnTeam().then(function(data) {
-	        vm.team1 = data;
-	    });
-	    returnTeamFactory.returnTeam().then(function(data) {
-	        vm.team2 = data;
-	    });
-	    reroute.$inject = ['$urlRouterProvider'];
-	    angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
-	        .config(reroute)
-	        .value(team1)
-	        .value(team2);
+	  function reroute ($urlRouterProvider) {
+	    $urlRouterProvider.otherwise('/yourTeam');
+	  }
+	  // get empty values for the teams to start and then
+	  // setup the controllers to update the backend on page change?
+	  // then ahve the controllers get the state from the backend?
+	  // array of objects I think since I'm using ng-repeat
+	
+	  // this.team1 = []
+	  // this.team2 = []
+	  // returnTeamFactory.returnTeam().then(function(data) {
+	  //     vm.team1 = data
+	  // })
+	  // returnTeamFactory.returnTeam().then(function(data) {
+	  //     vm.team2 = data
+	  // })
+	  reroute.$inject = ['$urlRouterProvider'];
+	  angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
+	    .config(reroute);
+	// .value(team1)
+	// .value(team2)
 	})();
 
 
