@@ -1,12 +1,12 @@
-describe('Team Player Add Factory', function() {
+xdescribe('Team Player Add Factory', function() {
     'use strict';
     var addPlayersFactory, $httpBackend;
     beforeEach(module('myApp.team'));
-    beforeEach(inject(function(_addPlayersFactory_, _$httpBackend_, ) {
+    beforeEach(inject(function(_addPlayersFactory_, _$httpBackend_) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         addPlayersFactory = _addPlayersFactory_;
         $httpBackend = _$httpBackend_;
-        $httpBackend.when('GET', ).respond({
+        $httpBackend.when('GET', 'http://localhost:8888/nflPlayers').respond({
             'Players': [{
                 'playerId': '1',
                 'active': '1',

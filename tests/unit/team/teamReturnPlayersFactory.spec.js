@@ -1,4 +1,4 @@
-describe('Team Return Players Factory', function() {
+xdescribe('Team Return Players Factory', function() {
     'use strict';
     var setupFactory, $httpBackend, $rootScope, expectedResult = [{
         id: 1,
