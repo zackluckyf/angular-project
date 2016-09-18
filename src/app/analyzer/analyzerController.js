@@ -5,8 +5,10 @@
     AnalyzerController.$inject = ['tradeValueFactory', 'addPlayersFactory'];
 
     function AnalyzerController(tradeValueFactory, addPlayersFactory) {
+        this.team1 = [];
+        this.team2 = [];
         this.updateTeam = function(player, team) {
-            addPlayersFactory.addPlayer(player, team);
+            addPlayersFactory.loadAndAddPlayer(player, team);
             // this clears the input fields after a player is added!
             this.player1 = '';
             this.player2 = '';

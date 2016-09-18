@@ -3,12 +3,12 @@
 
     angular.module('myApp.otherTeam')
         .controller('otherTeamController', OtherTeamController);
-    OtherTeamController.$inject = ['setupService', 'tradeValueFactory', 'addPlayersFactory'];
+    OtherTeamController.$inject = ['setupFactory', 'tradeValueFactory', 'addPlayersFactory'];
 
-    function OtherTeamController(setupService, tradeValueFactory, addPlayersFactory) {
-        this.team2 = setupService.teamState('team2');
+    function OtherTeamController(setupFactory, tradeValueFactory, addPlayersFactory) {
+        this.team2 = [];
         this.updateTeam = function(player, team) {
-            addPlayersFactory.addPlayer(player, team);
+            addPlayersFactory.loadAndAddPlayer(player, team);
             // this clears the input fields after a player is added!
             this.player2 = '';
         };

@@ -39556,13 +39556,13 @@
 	        $urlRouterProvider.otherwise('/yourTeam');
 	    }
 	
-	    setupService.$inject = ['$http'];
+	    setupFactory.$inject = ['$http'];
 	
-	    function setupService($http) {
+	    function setupFactory($http) {
 	        function teamState(team) {
-	            return $http.get('http://localhost:8888/teams').then(function(res) {
-	                return res.data;
-	            });
+	            // return $http.get('http://localhost:8888/teams').then(function(res) {
+	            //     return res.data;
+	            // });
 	        }
 	
 	        function setTeam(team) {
@@ -39576,7 +39576,7 @@
 	
 	    angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
 	        .config(reroute)
-	        .factory('setupService', setupService);
+	        .factory('setupFactory', setupFactory);
 	})();
 
 
@@ -39586,8 +39586,7 @@
 
 	(function() {
 	    'use strict';
-	    angular.module('myApp.team', [])
-	        .constant('playerurl', 'http://www.fantasyfootballnerd.com/service/players/json/dr4mykguqpd9/');
+	    angular.module('myApp.team', []);
 	    __webpack_require__(6);
 	}());
 
@@ -39603,12 +39602,13 @@
 	    angular.module('myApp.team')
 	        .factory('addPlayersFactory', addPlayersFactory);
 	
-	    addPlayersFactory.$inject = ['$http', 'playerurl'];
+	    addPlayersFactory.$inject = ['$http'];
 	
-	    function addPlayersFactory($http, playerurl) {
+	    function addPlayersFactory($http) {
 	        var nflPlayers = [];
 	
 	        function parsePlayers(data) {
+	            console.log('started parse with data from server');
 	            nflPlayers = data.filter(function(player) {
 	                return player.active === '1';
 	            }).map(function(player) {
@@ -39617,12 +39617,14 @@
 	        }
 	
 	        function loadNflPlayers() {
-	            return $http.get(playerurl).then(function(response) {
-	                return response.data.Players;
+	            console.log('attempted to get player data from node server');
+	            return $http.get('http://localhost:8888/nflPlayers').then(function(response) {
+	                return response.data;
 	            }).then(parsePlayers);
 	        }
 	
 	        function addPlayer(newPlayer, team) {
+	            console.log('went to add player:', newPlayer, 'to team:', team);
 	            var playerPosition = nflPlayers.indexOf(newPlayer);
 	            if (playerPosition !== -1 && Object.keys(team).length < 5) {
 	                team.push({
@@ -39634,11 +39636,13 @@
 	        function loadAndAddPlayer(newPlayer, team) {
 	            newPlayer = newPlayer.toLowerCase();
 	            if (nflPlayers.length < 1) {
+	                console.log('determined nfl players to not be initialized');
 	                loadNflPlayers().then(function() {
 	                    addPlayer(newPlayer, team);
 	                });
+	            } else {
+	                addPlayer(newPlayer, team);
 	            }
-	            addPlayer(newPlayer, team);
 	        }
 	
 	        return {
@@ -39680,10 +39684,10 @@
 	    angular.module('myApp.yourTeam')
 	        .controller('yourTeamController', YourTeamController);
 	
-	    YourTeamController.$inject = ['setupService', 'addPlayersFactory'];
+	    YourTeamController.$inject = ['setupFactory', 'addPlayersFactory'];
 	
-	    function YourTeamController(setupService, addPlayersFactory) {
-	        this.team2 = setupService.teamState('team2');
+	    function YourTeamController(setupFactory, addPlayersFactory) {
+	        this.team1 = [];
 	        this.updateTeam = function(player, team) {
 	            addPlayersFactory.loadAndAddPlayer(player, team);
 	            // this clears the input fields after a player is added!
@@ -39724,12 +39728,12 @@
 	
 	    angular.module('myApp.otherTeam')
 	        .controller('otherTeamController', OtherTeamController);
-	    OtherTeamController.$inject = ['setupService', 'tradeValueFactory', 'addPlayersFactory'];
+	    OtherTeamController.$inject = ['setupFactory', 'tradeValueFactory', 'addPlayersFactory'];
 	
-	    function OtherTeamController(setupService, tradeValueFactory, addPlayersFactory) {
-	        this.team2 = setupService.teamState('team2');
+	    function OtherTeamController(setupFactory, tradeValueFactory, addPlayersFactory) {
+	        this.team2 = [];
 	        this.updateTeam = function(player, team) {
-	            addPlayersFactory.addPlayer(player, team);
+	            addPlayersFactory.loadAndAddPlayer(player, team);
 	            // this clears the input fields after a player is added!
 	            this.player2 = '';
 	        };
@@ -39775,8 +39779,10 @@
 	    AnalyzerController.$inject = ['tradeValueFactory', 'addPlayersFactory'];
 	
 	    function AnalyzerController(tradeValueFactory, addPlayersFactory) {
+	        this.team1 = [];
+	        this.team2 = [];
 	        this.updateTeam = function(player, team) {
-	            addPlayersFactory.addPlayer(player, team);
+	            addPlayersFactory.loadAndAddPlayer(player, team);
 	            // this clears the input fields after a player is added!
 	            this.player1 = '';
 	            this.player2 = '';

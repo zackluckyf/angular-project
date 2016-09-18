@@ -3,10 +3,10 @@
     angular.module('myApp.yourTeam')
         .controller('yourTeamController', YourTeamController);
 
-    YourTeamController.$inject = ['setupService', 'addPlayersFactory'];
+    YourTeamController.$inject = ['setupFactory', 'addPlayersFactory'];
 
-    function YourTeamController(setupService, addPlayersFactory) {
-        this.team2 = setupService.teamState('team2');
+    function YourTeamController(setupFactory, addPlayersFactory) {
+        this.team1 = [];
         this.updateTeam = function(player, team) {
             addPlayersFactory.loadAndAddPlayer(player, team);
             // this clears the input fields after a player is added!

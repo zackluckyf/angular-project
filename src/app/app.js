@@ -11,13 +11,13 @@
         $urlRouterProvider.otherwise('/yourTeam');
     }
 
-    setupService.$inject = ['$http'];
+    setupFactory.$inject = ['$http'];
 
-    function setupService($http) {
+    function setupFactory($http) {
         function teamState(team) {
-            return $http.get('http://localhost:8888/teams').then(function(res) {
-                return res.data;
-            });
+            // return $http.get('http://localhost:8888/teams').then(function(res) {
+            //     return res.data;
+            // });
         }
 
         function setTeam(team) {
@@ -31,5 +31,5 @@
 
     angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
         .config(reroute)
-        .factory('setupService', setupService);
+        .factory('setupFactory', setupFactory);
 })();
