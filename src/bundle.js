@@ -39543,32 +39543,40 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	(function () {
-	  'use strict';
-	  __webpack_require__(5);
-	  __webpack_require__(8);
-	  __webpack_require__(10);
-	  __webpack_require__(12);
+	(function() {
+	    'use strict';
+	    __webpack_require__(5);
+	    __webpack_require__(7);
+	    __webpack_require__(9);
+	    __webpack_require__(11);
 	
-	  function reroute ($urlRouterProvider) {
-	    $urlRouterProvider.otherwise('/yourTeam');
-	  }
-	  // get empty values for the teams to start and then
-	  // setup the controllers to update the backend on page change?
-	  // then ahve the controllers get the state from the backend?
-	  // array of objects I think since I'm using ng-repeat
-	  // var vm = this
-	  function setupService () {
-	    return {
-	      teamState: teamState,
-	      updateTeam: updateTeam
-	    };
-	  }
+	    reroute.$inject = ['$urlRouterProvider'];
 	
-	  reroute.$inject = ['$urlRouterProvider'];
-	  angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
-	    .config(reroute)
-	    .factory('setupService', setupService);
+	    function reroute($urlRouterProvider) {
+	        $urlRouterProvider.otherwise('/yourTeam');
+	    }
+	
+	    setupService.$inject = ['$http'];
+	
+	    function setupService($http) {
+	        function teamState(team) {
+	            return $http.get('http://localhost:8888/teams').then(function(res) {
+	                return res.data;
+	            });
+	        }
+	
+	        function setTeam(team) {
+	            $http.put();
+	        }
+	        return {
+	            teamState: teamState,
+	            setTeam: setTeam
+	        };
+	    }
+	
+	    angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
+	        .config(reroute)
+	        .factory('setupService', setupService);
 	})();
 
 
@@ -39576,12 +39584,11 @@
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	(function () {
-	  'use strict';
-	  angular.module('myApp.team', [])
-	    .constant('playerurl', 'http://www.fantasyfootballnerd.com/service/players/json/dr4mykguqpd9/');
-	  __webpack_require__(6);
-	  __webpack_require__(7);
+	(function() {
+	    'use strict';
+	    angular.module('myApp.team', [])
+	        .constant('playerurl', 'http://www.fantasyfootballnerd.com/service/players/json/dr4mykguqpd9/');
+	    __webpack_require__(6);
 	}());
 
 
@@ -39589,83 +39596,60 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	(function () {
-	  'use strict';
-	  angular.module('myApp.team')
-	    .factory('returnTeamFactory', returnTeamFactory);
+	/*jshint esversion: 6 */
 	
-	  returnTeamFactory.$inject = ['$http'];
+	(function() {
+	    'use strict';
+	    angular.module('myApp.team')
+	        .factory('addPlayersFactory', addPlayersFactory);
 	
-	  function returnTeamFactory ($http) {
-	    function returnTeam () {
-	      return $http.get('http://localhost:8888/teams').then(function (res) {
-	        return res.data;
-	      });
+	    addPlayersFactory.$inject = ['$http', 'playerurl'];
+	
+	    function addPlayersFactory($http, playerurl) {
+	        var nflPlayers = [];
+	
+	        function parsePlayers(data) {
+	            nflPlayers = data.filter(function(player) {
+	                return player.active === '1';
+	            }).map(function(player) {
+	                return player.displayName.toLowerCase();
+	            });
+	        }
+	
+	        function loadNflPlayers() {
+	            return $http.get(playerurl).then(function(response) {
+	                return response.data.Players;
+	            }).then(parsePlayers);
+	        }
+	
+	        function addPlayer(newPlayer, team) {
+	            var playerPosition = nflPlayers.indexOf(newPlayer);
+	            if (playerPosition !== -1 && Object.keys(team).length < 5) {
+	                team.push({
+	                    name: newPlayer
+	                });
+	            }
+	        }
+	
+	        function loadAndAddPlayer(newPlayer, team) {
+	            newPlayer = newPlayer.toLowerCase();
+	            if (nflPlayers.length < 1) {
+	                loadNflPlayers().then(function() {
+	                    addPlayer(newPlayer, team);
+	                });
+	            }
+	            addPlayer(newPlayer, team);
+	        }
+	
+	        return {
+	            loadAndAddPlayer: loadAndAddPlayer
+	        };
 	    }
-	    return {
-	      returnTeam: returnTeam
-	    };
-	  }
 	}());
 
 
 /***/ },
 /* 7 */
-/***/ function(module, exports) {
-
-	/*jshint esversion: 6 */
-	
-	(function () {
-	  'use strict';
-	  angular.module('myApp.team')
-	    .factory('addPlayersFactory', addPlayersFactory);
-	
-	  addPlayersFactory.$inject = ['$http', 'playerurl'];
-	  function addPlayersFactory ($http, playerurl) {
-	    var nflPlayers = [];
-	
-	    function parsePlayers (data) {
-	      nflPlayers = data.filter(function (player) {
-	        return player.active === '1';
-	      }).map(function (player) {
-	        return player.displayName.toLowerCase();
-	      });
-	    }
-	
-	    function loadNflPlayers () {
-	      return $http.get(playerurl).then(function (response) {
-	        return response.data.Players;
-	      }).then(parsePlayers);
-	    }
-	    function addPlayer (newPlayer, team) {
-	      var newPlayerValue = Math.floor((newPlayer.length / 4));
-	      var playerPosition = nflPlayers.indexOf(newPlayer);
-	      if (playerPosition !== -1 && Object.keys(team).length < 5) {
-	        team.push({
-	          name: newPlayer,
-	          value: newPlayerValue
-	        });
-	      }
-	    }
-	    function loadAndAddPlayer (newPlayer, team) {
-	      newPlayer = newPlayer.toLowerCase();
-	      if (nflPlayers.length < 1) {
-	        loadNflPlayers().then(function () {
-	          addPlayer(newPlayer, team);
-	        });
-	      }
-	      addPlayer(newPlayer, team);
-	    }
-	
-	    return {
-	      loadAndAddPlayer: loadAndAddPlayer
-	    };
-	  }
-	}());
-
-
-/***/ },
-/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function () {
@@ -39683,36 +39667,34 @@
 	        templateUrl: 'app/yourTeam/yourTeam.html'
 	      });
 	  }
-	  __webpack_require__(9);
+	  __webpack_require__(8);
+	}());
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	(function() {
+	    'use strict';
+	    angular.module('myApp.yourTeam')
+	        .controller('yourTeamController', YourTeamController);
+	
+	    YourTeamController.$inject = ['setupService', 'addPlayersFactory'];
+	
+	    function YourTeamController(setupService, addPlayersFactory) {
+	        this.team2 = setupService.teamState('team2');
+	        this.updateTeam = function(player, team) {
+	            addPlayersFactory.loadAndAddPlayer(player, team);
+	            // this clears the input fields after a player is added!
+	            this.player1 = '';
+	        };
+	    }
 	}());
 
 
 /***/ },
 /* 9 */
-/***/ function(module, exports) {
-
-	(function () {
-	  'use strict';
-	  angular.module('myApp.yourTeam')
-	    .controller('yourTeamController', YourTeamController);
-	
-	  YourTeamController.$inject = ['returnTeamFactory', 'addPlayersFactory'];
-	
-	  function YourTeamController (returnTeamFactory, addPlayersFactory) {
-	    var vm = this;
-	
-	    this.updateTeam = function (player, team) {
-	      addPlayersFactory.addPlayer(player, team);
-	      // this clears the input fields after a player is added!
-	      this.player1 = '';
-	    };
-	    this.updateBackend = function () {};
-	  }
-	}());
-
-
-/***/ },
-/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function () {
@@ -39729,39 +39711,39 @@
 	
 	  angular.module('myApp.otherTeam', ['ui.router'])
 	    .config(otherTeamState);
-	  __webpack_require__(11);
+	  __webpack_require__(10);
+	}());
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	(function() {
+	    'use strict';
+	
+	    angular.module('myApp.otherTeam')
+	        .controller('otherTeamController', OtherTeamController);
+	    OtherTeamController.$inject = ['setupService', 'tradeValueFactory', 'addPlayersFactory'];
+	
+	    function OtherTeamController(setupService, tradeValueFactory, addPlayersFactory) {
+	        this.team2 = setupService.teamState('team2');
+	        this.updateTeam = function(player, team) {
+	            addPlayersFactory.addPlayer(player, team);
+	            // this clears the input fields after a player is added!
+	            this.player2 = '';
+	        };
+	        this.advice = [];
+	        this.tradeAnalysis = function(team1, team2) {
+	            this.advice = tradeValueFactory.analyzeTrade(team1, team2);
+	            return this.advice;
+	        };
+	    }
 	}());
 
 
 /***/ },
 /* 11 */
-/***/ function(module, exports) {
-
-	(function () {
-	  'use strict';
-	
-	  angular.module('myApp.otherTeam')
-	    .controller('otherTeamController', OtherTeamController);
-	  OtherTeamController.$inject = ['returnTeamFactory', 'tradeValueFactory', 'addPlayersFactory'];
-	
-	  function OtherTeamController (returnTeamFactory, tradeValueFactory, addPlayersFactory) {
-	    this.team2 = returnTeamFactory.returnTeam('team2');
-	    this.updateTeam = function (player, team) {
-	      addPlayersFactory.addPlayer(player, team);
-	      // this clears the input fields after a player is added!
-	      this.player2 = '';
-	    };
-	    this.advice = [];
-	    this.tradeAnalysis = function (team1, team2) {
-	      this.advice = tradeValueFactory.analyzeTrade(team1, team2);
-	      return this.advice;
-	    };
-	  }
-	}());
-
-
-/***/ },
-/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function () {
@@ -39777,8 +39759,34 @@
 	  tradeAnalyzerState.$inject = ['$stateProvider'];
 	  angular.module('myApp.analyzer', ['ui.router'])
 	    .config(tradeAnalyzerState);
+	  __webpack_require__(12);
 	  __webpack_require__(13);
-	  __webpack_require__(14);
+	}());
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	(function() {
+	    'use strict';
+	    angular.module('myApp.analyzer')
+	        .controller('analyzerController', AnalyzerController);
+	    AnalyzerController.$inject = ['tradeValueFactory', 'addPlayersFactory'];
+	
+	    function AnalyzerController(tradeValueFactory, addPlayersFactory) {
+	        this.updateTeam = function(player, team) {
+	            addPlayersFactory.addPlayer(player, team);
+	            // this clears the input fields after a player is added!
+	            this.player1 = '';
+	            this.player2 = '';
+	        };
+	        this.advice = [];
+	        this.tradeAnalysis = function(team1, team2) {
+	            this.advice = tradeValueFactory.analyzeTrade(team1, team2);
+	            return this.advice;
+	        };
+	    }
 	}());
 
 
@@ -39786,80 +39794,44 @@
 /* 13 */
 /***/ function(module, exports) {
 
-	(function () {
-	  'use strict';
-	  angular.module('myApp.analyzer')
-	    .controller('analyzerController', AnalyzerController);
-	  AnalyzerController.$inject = ['returnTeamFactory', 'tradeValueFactory', 'addPlayersFactory'];
+	(function() {
+	    'use strict';
+	    angular.module('myApp.analyzer')
+	        .factory('tradeValueFactory', tradeValueFactory);
 	
-	  function AnalyzerController (returnTeamFactory, tradeValueFactory, addPlayersFactory) {
-	    this.team1 = returnTeamFactory.returnTeam('team1');
-	    this.team2 = returnTeamFactory.returnTeam('team2');
-	    this.updateTeam = function (player, team) {
-	      addPlayersFactory.addPlayer(player, team);
-	      // this clears the input fields after a player is added!
-	      this.player1 = '';
-	      this.player2 = '';
-	    };
-	    this.advice = [];
-	    this.tradeAnalysis = function (team1, team2) {
-	      this.advice = tradeValueFactory.analyzeTrade(team1, team2);
-	      return this.advice;
-	    };
-	  }
-	}());
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	(function () {
-	  'use strict';
-	  angular.module('myApp.analyzer')
-	    .factory('tradeValueFactory', tradeValueFactory);
+	    function tradeValueFactory() {
+	        var teamValue;
 	
-	  function tradeValueFactory () {
-	    var player = {
-	      'Adrian Peterson': 4,
-	      'Antonio Brown': 5,
-	      'A.J. Green': 3,
-	      'Carson Palmer': 2,
-	      'Eli Manning': 1,
-	      'Phillip Rivers': 1
-	    };
-	    var teamValue;
+	        function calcTeamValue(team) {
+	            teamValue = 0;
+	            for (var i = 0; i < team.length; i++) {
+	                teamValue += team[i].name.length;
+	            }
+	            return teamValue;
+	        }
 	
-	    function calcTeamValue (team) {
-	      teamValue = 0;
-	      for (var i = 0; i < team.length; i++) {
-	        teamValue += team[i].value;
-	      }
-	      return teamValue;
+	        function analyzeTrade(team1, team2) {
+	            var team1val = calcTeamValue(team1);
+	            var team2val = calcTeamValue(team2);
+	            var stringTeam1 = 'Your player value: ' + team1val;
+	            var stringTeam2 = 'Their player value: ' + team2val;
+	            var stringAdvice = '';
+	            if (team1val < team2val) {
+	                stringAdvice = ' This is a good trade for you!';
+	            } else if (team1val === team2val) {
+	                stringAdvice = ' This is a balanced trade!';
+	            } else if (team1val > team2val) {
+	                stringAdvice = ' This is a bad trade for you!';
+	            }
+	            var advice = [stringTeam1, stringTeam2, stringAdvice];
+	            return advice;
+	        }
+	
+	        return {
+	            calcTeamValue: calcTeamValue,
+	            analyzeTrade: analyzeTrade
+	        };
 	    }
-	
-	    function analyzeTrade (team1, team2) {
-	      var team1val = calcTeamValue(team1);
-	      var team2val = calcTeamValue(team2);
-	      var stringTeam1 = 'Your player value: ' + team1val;
-	      var stringTeam2 = 'Their player value: ' + team2val;
-	      var stringAdvice = '';
-	      if (team1val < team2val) {
-	        stringAdvice = ' This is a good trade for you!';
-	      } else if (team1val === team2val) {
-	        stringAdvice = ' This is a balanced trade!';
-	      } else if (team1val > team2val) {
-	        stringAdvice = ' This is a bad trade for you!';
-	      }
-	      var advice = [stringTeam1, stringTeam2, stringAdvice];
-	      return advice;
-	    }
-	
-	    return {
-	      calcTeamValue: calcTeamValue,
-	      analyzeTrade: analyzeTrade
-	    };
-	  }
 	}());
 
 

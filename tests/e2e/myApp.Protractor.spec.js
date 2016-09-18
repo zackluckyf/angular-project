@@ -1,6 +1,6 @@
 // protractor
 var homepage = require('./homepage');
-describe('myApp', function() {
+xdescribe('myApp', function() {
     'use strict';
     it('should have a player text of Adrian Peterson', function() {
         expect(homepage.getPlayerText()).toEqual('Adrian Peterson');
@@ -16,7 +16,7 @@ describe('myApp', function() {
         homepage.addPlayer('Antonio Brown');
         expect(homepage.getPlayerText()).toEqual('Antonio Brown');
     });
-    xit('should navigate through pages and get the results of a trade', function() {
+    it('should navigate through pages and get the results of a trade', function() {
         // two teams should currently be Antonio Brown and Antonio Brown
         // without the state of the controllers transferring it doesn't keep state between views/pages
         homepage.navigate();
