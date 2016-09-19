@@ -11,7 +11,7 @@ exports.config = {
         'phantomjs.binary.path': require('phantomjs').path
     },
 
-    baseUrl: 'http://localhost:8880/',
+    baseUrl: 'http://localhost:8000/',
 
     framework: 'jasmine',
 
