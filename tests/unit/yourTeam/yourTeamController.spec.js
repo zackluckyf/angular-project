@@ -1,13 +1,13 @@
 // jasmine
 describe('Your Team Controller', function() {
     'use strict';
-    var scope, controller, setupFactory;
+    var scope, controller, SetupFactory;
     beforeEach(module('myApp.team', 'myApp.yourTeam', 'myApp'));
-    beforeEach(inject(function($controller, $rootScope, _setupFactory_) {
+    beforeEach(inject(function($controller, $rootScope, _SetupFactory_) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         scope = $rootScope.$new();
-        setupFactory = _setupFactory_;
-        spyOn(setupFactory, 'teamState').and.callThrough();
+        SetupFactory = _SetupFactory_;
+        spyOn(SetupFactory, 'teamState').and.callThrough();
         controller = $controller('yourTeamController as ytc', {
             $scope: scope
         });

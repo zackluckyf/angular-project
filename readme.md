@@ -6,9 +6,9 @@ Next Steps
 
 Controllers can't access state yet:
 
-1) create the functions in setupFactory to send state to database
+1) create the functions in SetupFactory to send state to database
 
-2) create the functions in setupFactory to retrieve state
+2) create the functions in SetupFactory to retrieve state
 
 Fix HTML and SCSS
 

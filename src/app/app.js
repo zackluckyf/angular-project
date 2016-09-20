@@ -1,35 +1,46 @@
-(function () {
-  'use strict';
-  require('./common/team/teamConfig');
-  require('./yourTeam/yourTeamConfig');
-  require('./otherTeam/otherTeamConfig');
-  require('./analyzer/analyzerConfig');
+(function() {
+    'use strict';
+    require('./common/team/teamConfig');
+    require('./yourTeam/yourTeamConfig');
+    require('./otherTeam/otherTeamConfig');
+    require('./analyzer/analyzerConfig');
 
-  reroute.$inject = ['$urlRouterProvider'];
+    reroute.$inject = ['$urlRouterProvider'];
 
-  function reroute ($urlRouterProvider) {
-    $urlRouterProvider.otherwise('/yourTeam');
-  }
-
-  setupFactory.$inject = ['$http'];
-
-  function setupFactory ($http) {
-    function teamState (team) {
-      return $http.get('http://localhost:8888/teams').then(function (res) {
-        return res.data;
-      });
+    function reroute($urlRouterProvider) {
+        $urlRouterProvider.otherwise('/yourTeam');
     }
 
-    function setTeam (team) {
-      $http.put();
-    }
-    return {
-      teamState: teamState,
-      setTeam: setTeam
-    };
-  }
+    function SetupFactory() {
+        var vm = this;
+        this.yourTeam = {
+            name: 'yourTeam',
+            players: []
+        };
+        this.otherTeam = {
+            name: 'otherTeam',
+            players: []
+        };
 
-  angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
-    .config(reroute)
-    .factory('setupFactory', setupFactory);
+        function teamState(name) {
+            if (name === 'yourTeam') {
+                return vm.yourTeam;
+            } else return vm.otherTeam;
+        }
+
+        function setTeam(team) {
+            if (team.name === 'yourTeam') {
+                vm.yourTeam.players.push(team.player);
+            } else vm.otherTeam.players.push(team.player);
+        }
+
+        return {
+            teamState: teamState,
+            setTeam: setTeam
+        };
+    }
+
+    angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
+        .config(reroute)
+        .factory('SetupFactory', SetupFactory);
 })();
