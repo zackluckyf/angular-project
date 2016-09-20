@@ -22,7 +22,7 @@
         </ul>
         <div class="submit-button myRow">
             <button><a ui-sref="otherTeam">Other Team</a></button>
-            <button ng-click='tac.tradeAnalysis(tac.team1, tac.team2)'>Analyze New Trade!</button>
+            <button id='new-trade' ng-click='tac.tradeAnalysis(tac.team1, tac.team2)'>Analyze New Trade!</button>
         </div>
         <div class="myRow">
             <div class="results">{{tac.advice[0]}}</div>
