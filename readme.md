@@ -9,6 +9,8 @@ npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack
 
 Controllers have state access through the main module's SetupFactory!
 
+(#awesome-section)
+
 Next steps:
 
 Need a new remove function to get rid of players(look into splice in the SetupFactory)
