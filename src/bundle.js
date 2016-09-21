@@ -39644,6 +39644,7 @@
 	        }
 	
 	        function loadAndAddPlayer(newPlayer, team) {
+	            console.log(team);
 	            newPlayer = newPlayer.toLowerCase();
 	            if (nflPlayers.length < 1) {
 	                console.log('determined nfl players to not be initialized');
