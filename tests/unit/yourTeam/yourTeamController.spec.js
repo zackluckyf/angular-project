@@ -13,20 +13,14 @@ describe('Your Team Controller', function() {
         });
     }));
     it('should not let undefined be added to a team for example Eli Tanning', function() {
-        var team1 = [{
-            name: 'Adrian Peterson',
-            value: 4
-        }, {
-            name: 'Carson Palmer',
-            value: 2
+        var yourTeam = [{
+            name: 'yourTeam',
+            players: ['Carson Palmer', 'Adrian Peterson']
         }];
-        scope.ytc.updateTeam('Eli Tanning', team1);
-        expect(team1).toEqual([{
-            name: 'Adrian Peterson',
-            value: 4
-        }, {
-            name: 'Carson Palmer',
-            value: 2
+        scope.ytc.updateTeam('Eli Tanning', yourTeam);
+        expect(yourTeam).toEqual([{
+            name: 'yourTeam',
+            players: ['Carson Palmer', 'Adrian Peterson']
         }]);
     });
 });

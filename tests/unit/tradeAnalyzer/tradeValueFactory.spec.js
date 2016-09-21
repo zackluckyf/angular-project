@@ -7,16 +7,16 @@ describe('Trade Value Factory', function() {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         tradeValueFactory = _tradeValueFactory_;
     }));
-    it("should return 6 given [{name: 'Adrian Peterson'}, {name: 'Carson Palmer'}]", function() {
-        expect(tradeValueFactory.calcTeamValue([{
-            name: 'Adrian Peterson'
-        }, {
-            name: 'Carson Palmer'
-        }])).toEqual(28);
+    it("should return 28 given Adrian Peterson and Carson Palmer", function() {
+        expect(tradeValueFactory.calcTeamValue({
+            name: 'YourTeam',
+            players: ['Carson Palmer', 'Adrian Peterson']
+        })).toEqual(28);
     });
-    it("should return 5 given [{name: 'Antonio Brown'}]", function() {
-        expect(tradeValueFactory.calcTeamValue([{
-            name: 'Antonio Brown'
-        }])).toEqual(13);
+    it("should return 13 given Antonio Brown", function() {
+        expect(tradeValueFactory.calcTeamValue({
+            name: 'otherTeam',
+            players: ['Antonio Brown']
+        })).toEqual(13);
     });
 });

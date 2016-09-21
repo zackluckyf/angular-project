@@ -1,10 +1,11 @@
 describe('Team Player Add Factory', function() {
     'use strict';
-    var addPlayersFactory, $httpBackend, $rootScope;
+    var addPlayersFactory, $httpBackend, $rootScope, SetupFactory;
     beforeEach(module('myApp'));
     beforeEach(inject(function(_addPlayersFactory_, _$httpBackend_, _$rootScope_, _SetupFactory_) {
         // The injector unwraps the underscores (_) from around the parameter names when matching
         addPlayersFactory = _addPlayersFactory_;
+        SetupFactory = _SetupFactory_;
         $httpBackend = _$httpBackend_;
         $rootScope = _$rootScope_;
         $httpBackend.when('GET', 'http://localhost:8888/nflPlayers').respond(
@@ -38,7 +39,7 @@ describe('Team Player Add Factory', function() {
         addPlayersFactory.loadAndAddPlayer('Erik Ainge', team);
         $httpBackend.flush();
         // $rootScope.$digest()
-        expect(team).toEqual({
+        expect(SetupFactory.teamState('yourTeam')).toEqual({
             name: 'yourTeam',
             players: ['erik ainge']
         });

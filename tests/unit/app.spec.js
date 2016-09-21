@@ -21,8 +21,8 @@ describe('App Config', function() {
     it("should be able to change yourTeam and get state", function() {
         SetupFactory.setTeam({
             name: 'yourTeam',
-            player: 'Carson Palmer'
-        });
+            player: []
+        }, 'Carson Palmer');
         expect(SetupFactory.teamState('yourTeam')).toEqual({
             name: 'yourTeam',
             players: ['Carson Palmer']
@@ -31,8 +31,8 @@ describe('App Config', function() {
     it("should be able to change otherTeam and get state", function() {
         SetupFactory.setTeam({
             name: 'otherTeam',
-            player: 'Adrian Peterson'
-        });
+            player: []
+        }, 'Adrian Peterson');
         expect(SetupFactory.teamState('otherTeam')).toEqual({
             name: 'otherTeam',
             players: ['Adrian Peterson']
