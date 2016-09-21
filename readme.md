@@ -1,3 +1,6 @@
+Fantasy Football App! 
+[![Build Status](https://travis-ci.org/zackluckyf/angular-project.svg?branch=master.png)](https://travis-ci.org/zackluckyf/angular-project.svg?branch=master)
+
 Global Dependencies
 
 npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack
