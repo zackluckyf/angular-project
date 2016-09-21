@@ -1,7 +1,7 @@
 <h1>Fantasy Football App!</h1>
 [![Build Status](https://travis-ci.org/zackluckyf/angular-project.png)](https://travis-ci.org/zackluckyf/angular-project)
 
-[Link to a header](#awesome-section)
+[Link to a header](#the-header)
 
 Global Dependencies
 
@@ -9,7 +9,7 @@ npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack
 
 Controllers have state access through the main module's SetupFactory!
 
-(#awesome-section)
+## The Header
 
 Next steps:
 
