@@ -1,5 +1,5 @@
-Fantasy Football App! 
-[![Build Status](https://travis-ci.org/zackluckyf/angular-project.svg?branch=master.png)](https://travis-ci.org/zackluckyf/angular-project.svg?branch=master)
+Fantasy Football App!
+[![Build Status](https://travis-ci.org/zackluckyf/angular-project.png)](https://travis-ci.org/zackluckyf/angular-project)
 
 Global Dependencies
 
