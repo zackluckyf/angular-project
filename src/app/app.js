@@ -28,10 +28,10 @@
             } else return vm.otherTeam;
         }
 
-        function setTeam(team) {
+        function setTeam(team, player) {
             if (team.name === 'yourTeam') {
-                vm.yourTeam.players.push(team.player);
-            } else vm.otherTeam.players.push(team.player);
+                vm.yourTeam.players.push(player);
+            } else vm.otherTeam.players.push(player);
         }
 
         return {

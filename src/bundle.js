@@ -39573,10 +39573,10 @@
 	            } else return vm.otherTeam;
 	        }
 	
-	        function setTeam(team) {
+	        function setTeam(team, player) {
 	            if (team.name === 'yourTeam') {
-	                vm.yourTeam.players.push(team.player);
-	            } else vm.otherTeam.players.push(team.player);
+	                vm.yourTeam.players.push(player);
+	            } else vm.otherTeam.players.push(player);
 	        }
 	
 	        return {
@@ -39635,11 +39635,12 @@
 	        }
 	
 	        function addPlayer(newPlayer, team) {
-	            console.log('went to add player:', newPlayer, 'to team:', team);
 	            var playerPosition = nflPlayers.indexOf(newPlayer);
 	            if (playerPosition !== -1 && Object.keys(team).length < 5) {
+	                console.log('successfully added:', newPlayer, 'to:', team);
 	                SetupFactory.setTeam(team, newPlayer);
-	                team.players.push(newPlayer);
+	            } else {
+	                console.log('failed to add:', newPlayer, 'to:', team);
 	            }
 	        }
 	
@@ -39701,6 +39702,7 @@
 	        this.yourTeam = SetupFactory.teamState('yourTeam');
 	        this.updateTeam = function(player, team) {
 	            addPlayersFactory.loadAndAddPlayer(player, team);
+	            this.yourTeam = SetupFactory.teamState('yourTeam');
 	            // this clears the input fields after a player is added!
 	            this.player1 = '';
 	        };
@@ -39745,6 +39747,7 @@
 	        this.otherTeam = SetupFactory.teamState('otherTeam');
 	        this.updateTeam = function(player, team) {
 	            addPlayersFactory.loadAndAddPlayer(player, team);
+	            this.otherTeam = SetupFactory.teamState('otherTeam');
 	            // this clears the input fields after a player is added!
 	            this.player2 = '';
 	        };
@@ -39794,6 +39797,8 @@
 	        this.otherTeam = SetupFactory.teamState('otherTeam');
 	        this.updateTeam = function(player, team) {
 	            addPlayersFactory.loadAndAddPlayer(player, team);
+	            this.yourTeam = SetupFactory.teamState('yourTeam');
+	            this.otherTeam = SetupFactory.teamState('otherTeam');
 	            // this clears the input fields after a player is added!
 	            this.player1 = '';
 	            this.player2 = '';
@@ -39821,8 +39826,8 @@
 	
 	        function calcTeamValue(team) {
 	            teamValue = 0;
-	            for (var i = 0; i < team.length; i++) {
-	                teamValue += team[i].name.length;
+	            for (var i = 0; i < team.players.length; i++) {
+	                teamValue += team.players[i].length;
 	            }
 	            return teamValue;
 	        }

@@ -27,11 +27,12 @@
         }
 
         function addPlayer(newPlayer, team) {
-            console.log('went to add player:', newPlayer, 'to team:', team);
             var playerPosition = nflPlayers.indexOf(newPlayer);
             if (playerPosition !== -1 && Object.keys(team).length < 5) {
+                console.log('successfully added:', newPlayer, 'to:', team);
                 SetupFactory.setTeam(team, newPlayer);
-                team.players.push(newPlayer);
+            } else {
+                console.log('failed to add:', newPlayer, 'to:', team);
             }
         }
 

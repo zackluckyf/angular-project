@@ -8,8 +8,8 @@
 
         function calcTeamValue(team) {
             teamValue = 0;
-            for (var i = 0; i < team.length; i++) {
-                teamValue += team[i].name.length;
+            for (var i = 0; i < team.players.length; i++) {
+                teamValue += team.players[i].length;
             }
             return teamValue;
         }

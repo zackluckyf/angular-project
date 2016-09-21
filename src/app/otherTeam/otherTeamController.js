@@ -9,6 +9,7 @@
         this.otherTeam = SetupFactory.teamState('otherTeam');
         this.updateTeam = function(player, team) {
             addPlayersFactory.loadAndAddPlayer(player, team);
+            this.otherTeam = SetupFactory.teamState('otherTeam');
             // this clears the input fields after a player is added!
             this.player2 = '';
         };

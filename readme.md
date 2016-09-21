@@ -1,17 +1,21 @@
 Global Dependencies
 
-npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack, istanbul
+npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack
 
-Next Steps
+Controllers have state access through the main module's SetupFactory!
 
-Controllers can't access state yet:
+Next steps:
 
-1) create the functions in SetupFactory to send state to database
+Need a new remove function to get rid of players(look into splice in the SetupFactory)
 
-2) create the functions in SetupFactory to retrieve state
+Move the initialization of state to the config with the state provider,
+
+keep the state updaters in the controllers modification functions to
+
+maintain state as players are added. Use the SetupFactory to make the players name camel case.
 
 Fix HTML and SCSS
 
-Create a typeahead directive (optional), harder with data being on the backend.
+Create a typeahead directive (optional)
 
 Create a toggle directive (loading page, also optional)
