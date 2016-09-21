@@ -1,4 +1,4 @@
-Fantasy Football App!
+<h1>Fantasy Football App!</h1>
 [![Build Status](https://travis-ci.org/zackluckyf/angular-project.png)](https://travis-ci.org/zackluckyf/angular-project)
 
 Global Dependencies
