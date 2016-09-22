@@ -34,9 +34,17 @@
       } else vm.otherTeam.players.push(player);
     }
 
+    function removePlayer (team, index) {
+      console.log(team, index, 'in removePlayer');
+      if (team === 'yourTeam') {
+        vm.yourTeam.players.splice(index, 1);
+      } else vm.otherTeam.players.splice(index, 1);
+    }
+
     return {
       teamState: teamState,
-      setTeam: setTeam
+      setTeam: setTeam,
+      removePlayer: removePlayer
     };
   }
 

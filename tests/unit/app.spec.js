@@ -38,4 +38,16 @@ describe('App Config', function () {
       players: ['Adrian Peterson']
     });
   });
+  it('should be able to remove a player from a team', function () {
+    SetupFactory.setTeam({
+      name: 'otherTeam',
+      player: []
+    }, 'Adrian Peterson');
+    console.log(SetupFactory);
+    SetupFactory.removePlayer('otherTeam', 0);
+    expect(SetupFactory.teamState('otherTeam')).toEqual({
+      name: 'otherTeam',
+      players: []
+    });
+  });
 });

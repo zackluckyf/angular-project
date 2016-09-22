@@ -39543,52 +39543,60 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	(function() {
-	    'use strict';
-	    __webpack_require__(5);
-	    __webpack_require__(7);
-	    __webpack_require__(9);
-	    __webpack_require__(11);
+	(function () {
+	  'use strict';
+	  __webpack_require__(5);
+	  __webpack_require__(7);
+	  __webpack_require__(9);
+	  __webpack_require__(11);
 	
-	    reroute.$inject = ['$urlRouterProvider'];
+	  reroute.$inject = ['$urlRouterProvider'];
 	
-	    function reroute($urlRouterProvider) {
-	        $urlRouterProvider.otherwise('/yourTeam');
+	  function reroute ($urlRouterProvider) {
+	    $urlRouterProvider.otherwise('/yourTeam');
+	  }
+	
+	  function SetupFactory () {
+	    var vm = this;
+	    this.yourTeam = {
+	      name: 'yourTeam',
+	      players: []
+	    };
+	    this.otherTeam = {
+	      name: 'otherTeam',
+	      players: []
+	    };
+	
+	    function teamState (name) {
+	      if (name === 'yourTeam') {
+	        return vm.yourTeam;
+	      } else return vm.otherTeam;
 	    }
 	
-	    function SetupFactory() {
-	        var vm = this;
-	        this.yourTeam = {
-	            name: 'yourTeam',
-	            players: []
-	        };
-	        this.otherTeam = {
-	            name: 'otherTeam',
-	            players: []
-	        };
-	
-	        function teamState(name) {
-	            if (name === 'yourTeam') {
-	                return vm.yourTeam;
-	            } else return vm.otherTeam;
-	        }
-	
-	        function setTeam(team, player) {
-	            if (team.name === 'yourTeam') {
-	                vm.yourTeam.players.push(player);
-	            } else vm.otherTeam.players.push(player);
-	        }
-	
-	        return {
-	            teamState: teamState,
-	            setTeam: setTeam
-	        };
+	    function setTeam (team, player) {
+	      if (team.name === 'yourTeam') {
+	        vm.yourTeam.players.push(player);
+	      } else vm.otherTeam.players.push(player);
 	    }
 	
-	    angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
-	        .config(reroute)
-	        .factory('SetupFactory', SetupFactory);
-	})();
+	    function removePlayer (team, index) {
+	      console.log(team, index, 'in removePlayer');
+	      if (team === 'yourTeam') {
+	        vm.yourTeam.players.splice(index, 1);
+	      } else vm.otherTeam.players.splice(index, 1);
+	    }
+	
+	    return {
+	      teamState: teamState,
+	      setTeam: setTeam,
+	      removePlayer: removePlayer
+	    };
+	  }
+	
+	  angular.module('myApp', ['myApp.team', 'myApp.yourTeam', 'myApp.otherTeam', 'myApp.analyzer'])
+	    .config(reroute)
+	    .factory('SetupFactory', SetupFactory);
+	}());
 
 
 /***/ },
@@ -39690,22 +39698,24 @@
 /* 8 */
 /***/ function(module, exports) {
 
-	(function() {
-	    'use strict';
-	    angular.module('myApp.yourTeam')
-	        .controller('yourTeamController', YourTeamController);
+	(function () {
+	  'use strict';
+	  angular.module('myApp.yourTeam')
+	    .controller('yourTeamController', YourTeamController);
 	
-	    YourTeamController.$inject = ['SetupFactory', 'addPlayersFactory'];
+	  YourTeamController.$inject = ['SetupFactory', 'addPlayersFactory'];
 	
-	    function YourTeamController(SetupFactory, addPlayersFactory) {
-	        this.yourTeam = SetupFactory.teamState('yourTeam');
-	        this.updateTeam = function(player, team) {
-	            addPlayersFactory.loadAndAddPlayer(player, team);
-	            this.yourTeam = SetupFactory.teamState('yourTeam');
-	            // this clears the input fields after a player is added!
-	            this.player1 = '';
-	        };
-	    }
+	  function YourTeamController (SetupFactory, addPlayersFactory) {
+	    this.yourTeam = SetupFactory.teamState('yourTeam');
+	    this.updateTeam = function (player, team) {
+	      addPlayersFactory.loadAndAddPlayer(player, team);
+	      // this clears the input fields after a player is added!
+	      this.player1 = '';
+	    };
+	    this.remove = function (team, index) {
+	      SetupFactory.removePlayer(team, index);
+	    };
+	  }
 	}());
 
 
@@ -39735,27 +39745,29 @@
 /* 10 */
 /***/ function(module, exports) {
 
-	(function() {
-	    'use strict';
+	(function () {
+	  'use strict';
 	
-	    angular.module('myApp.otherTeam')
-	        .controller('otherTeamController', OtherTeamController);
-	    OtherTeamController.$inject = ['SetupFactory', 'tradeValueFactory', 'addPlayersFactory'];
+	  angular.module('myApp.otherTeam')
+	    .controller('otherTeamController', OtherTeamController);
+	  OtherTeamController.$inject = ['SetupFactory', 'tradeValueFactory', 'addPlayersFactory'];
 	
-	    function OtherTeamController(SetupFactory, tradeValueFactory, addPlayersFactory) {
-	        this.otherTeam = SetupFactory.teamState('otherTeam');
-	        this.updateTeam = function(player, team) {
-	            addPlayersFactory.loadAndAddPlayer(player, team);
-	            this.otherTeam = SetupFactory.teamState('otherTeam');
-	            // this clears the input fields after a player is added!
-	            this.player2 = '';
-	        };
-	        this.advice = [];
-	        this.tradeAnalysis = function(yourTeam, otherTeam) {
-	            this.advice = tradeValueFactory.analyzeTrade(yourTeam, otherTeam);
-	            return this.advice;
-	        };
-	    }
+	  function OtherTeamController (SetupFactory, tradeValueFactory, addPlayersFactory) {
+	    this.otherTeam = SetupFactory.teamState('otherTeam');
+	    this.updateTeam = function (player, team) {
+	      addPlayersFactory.loadAndAddPlayer(player, team);
+	      // this clears the input fields after a player is added!
+	      this.player2 = '';
+	    };
+	    this.remove = function (team, index) {
+	      SetupFactory.removePlayer(team, index);
+	    };
+	    this.advice = [];
+	    this.tradeAnalysis = function (yourTeam, otherTeam) {
+	      this.advice = tradeValueFactory.analyzeTrade(yourTeam, otherTeam);
+	      return this.advice;
+	    };
+	  }
 	}());
 
 
@@ -39785,29 +39797,30 @@
 /* 12 */
 /***/ function(module, exports) {
 
-	(function() {
-	    'use strict';
-	    angular.module('myApp.analyzer')
-	        .controller('analyzerController', AnalyzerController);
-	    AnalyzerController.$inject = ['tradeValueFactory', 'addPlayersFactory', 'SetupFactory'];
+	(function () {
+	  'use strict';
+	  angular.module('myApp.analyzer')
+	    .controller('analyzerController', AnalyzerController);
+	  AnalyzerController.$inject = ['tradeValueFactory', 'addPlayersFactory', 'SetupFactory'];
 	
-	    function AnalyzerController(tradeValueFactory, addPlayersFactory, SetupFactory) {
-	        this.yourTeam = SetupFactory.teamState('yourTeam');
-	        this.otherTeam = SetupFactory.teamState('otherTeam');
-	        this.updateTeam = function(player, team) {
-	            addPlayersFactory.loadAndAddPlayer(player, team);
-	            this.yourTeam = SetupFactory.teamState('yourTeam');
-	            this.otherTeam = SetupFactory.teamState('otherTeam');
-	            // this clears the input fields after a player is added!
-	            this.player1 = '';
-	            this.player2 = '';
-	        };
-	        this.advice = [];
-	        this.tradeAnalysis = function(yourTeam, otherTeam) {
-	            this.advice = tradeValueFactory.analyzeTrade(yourTeam, otherTeam);
-	            return this.advice;
-	        };
-	    }
+	  function AnalyzerController (tradeValueFactory, addPlayersFactory, SetupFactory) {
+	    this.yourTeam = SetupFactory.teamState('yourTeam');
+	    this.otherTeam = SetupFactory.teamState('otherTeam');
+	    this.updateTeam = function (player, team) {
+	      addPlayersFactory.loadAndAddPlayer(player, team);
+	      // this clears the input fields after a player is added!
+	      this.player1 = '';
+	      this.player2 = '';
+	    };
+	    this.remove = function (team, index) {
+	      SetupFactory.removePlayer(team, index);
+	    };
+	    this.advice = [];
+	    this.tradeAnalysis = function (yourTeam, otherTeam) {
+	      this.advice = tradeValueFactory.analyzeTrade(yourTeam, otherTeam);
+	      return this.advice;
+	    };
+	  }
 	}());
 
 
