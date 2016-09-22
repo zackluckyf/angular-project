@@ -31,7 +31,7 @@
 
   * Single Page Application Built with AngularJS using angular ui router
   * Makes use of a third party API to keep data fresh
-  * Component based, so it's easier to expand and reuse 
+  * Component based, so it's easier to expand and reuse
 
 ## Dev Features
 
@@ -44,16 +44,16 @@
 
 ## Next Steps
 
-Create a typeahead directive (optional)
+  * Create a toggle directive 
 
-Create a toggle directive (loading page, also optional)
-
-Implement WCAG standards (optional)
+  * Create a typeahead directive
 
 ## Looking Ahead
 
-Fix HTML and SASS
+  * Fix HTML and SASS
 
-Implement OAUTH
+  * Implement WCAG standards
 
-Setup Database to store historical trade analysis
+  * Implement OAUTH
+
+  * Setup Database to store historical trade analysis
