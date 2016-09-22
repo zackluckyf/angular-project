@@ -26,11 +26,12 @@
 
 ## Features
 
-  * Single Page Application
-  * Utilizes a Node server as a proxy to fix CORS issue
-  * Uses a factory to maintain state between controllers
-  * Navigable
-  * Gives Trade Value
+  * Single Page Application using angular ui router
+  * Utilizes an Express Node server as a proxy to resolve CORS issue
+  * Uses third party API to keep data fresh
+  * Built with AngularJS
+  * Component based
+  * Webapck used to bundle dependencies
 
 ## Next Steps
 
