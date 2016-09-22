@@ -36,7 +36,7 @@ describe('Players Factory', function () {
     // $rootScope.$digest()
     expect(SetupFactory.teamState('yourTeam')).toEqual({
       name: 'yourTeam',
-      players: ['erik ainge']
+      players: ['Erik Ainge']
     });
     $httpBackend.verifyNoOutstandingExpectation();
     $httpBackend.verifyNoOutstandingRequest();
