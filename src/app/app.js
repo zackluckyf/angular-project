@@ -22,6 +22,17 @@
       players: []
     };
 
+    function titleCase (string) {
+      var words = string.split(' ');
+      var firstName = words[0].split('');
+      var lastName = words[1].split('');
+      firstName[0] = firstName[0].toUpperCase();
+      lastName[0] = lastName[0].toUpperCase();
+      firstName = firstName.join('');
+      lastName = lastName.join('');
+      return firstName + ' ' + lastName;
+    }
+
     function teamState (name) {
       if (name === 'yourTeam') {
         return vm.yourTeam;
@@ -30,8 +41,8 @@
 
     function setTeam (team, player) {
       if (team.name === 'yourTeam') {
-        vm.yourTeam.players.push(player);
-      } else vm.otherTeam.players.push(player);
+        vm.yourTeam.players.push(titleCase(player));
+      } else vm.otherTeam.players.push(titleCase(player));
     }
 
     function removePlayer (team, index) {
