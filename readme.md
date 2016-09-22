@@ -6,6 +6,8 @@
 
 [Features](#features)
 
+[Dev-Features](#dev-features)
+
 [Next Steps](#next-steps)
 
 [Looking Ahead](#looking-ahead)
@@ -27,12 +29,18 @@
 
 ## Features
 
-  * Single Page Application using angular ui router
-  * Utilizes an Express Node server as a proxy to resolve CORS issue
-  * Uses third party API to keep data fresh
-  * Built with AngularJS
-  * Component based
+  * Single Page Application Built with AngularJS using angular ui router
+  * Makes use of a third party API to keep data fresh
+  * Component based, so it's easier to expand and reuse 
+
+## Dev Features
+
   * Webpack used to bundle dependencies
+  * Unit tests done in karma and jasmine
+  * End to end tests done in protractor
+  * Travis-ci integrated
+  * Gulp used to compile SASS, concat, and uglify
+  * Utilizes an Express Node server as a proxy to resolve CORS issue
 
 ## Next Steps
 
