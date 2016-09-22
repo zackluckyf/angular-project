@@ -39580,10 +39580,11 @@
 	    }
 	
 	    function removePlayer (team, index) {
-	      console.log(team, index, 'in removePlayer');
 	      if (team === 'yourTeam') {
 	        vm.yourTeam.players.splice(index, 1);
-	      } else vm.otherTeam.players.splice(index, 1);
+	      } else {
+	        vm.otherTeam.players.splice(index, 1);
+	      }
 	    }
 	
 	    return {
@@ -39606,72 +39607,12 @@
 	(function() {
 	    'use strict';
 	    angular.module('myApp.team', []);
-	    __webpack_require__(6);
+	    __webpack_require__(14);
 	}());
 
 
 /***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	/*jshint esversion: 6 */
-	
-	(function() {
-	    'use strict';
-	    angular.module('myApp.team')
-	        .factory('addPlayersFactory', addPlayersFactory);
-	
-	    addPlayersFactory.$inject = ['$http', 'SetupFactory'];
-	
-	    function addPlayersFactory($http, SetupFactory) {
-	        var nflPlayers = [];
-	
-	        function parsePlayers(data) {
-	            console.log('started parse with data from server');
-	            nflPlayers = data.filter(function(player) {
-	                return player.active === '1';
-	            }).map(function(player) {
-	                return player.displayName.toLowerCase();
-	            });
-	        }
-	
-	        function loadNflPlayers() {
-	            console.log('attempted to get player data from node server');
-	            return $http.get('http://localhost:8888/nflPlayers').then(function(response) {
-	                return response.data;
-	            }).then(parsePlayers);
-	        }
-	
-	        function addPlayer(newPlayer, team) {
-	            var playerPosition = nflPlayers.indexOf(newPlayer);
-	            if (playerPosition !== -1 && Object.keys(team).length < 5) {
-	                console.log('successfully added:', newPlayer, 'to:', team);
-	                SetupFactory.setTeam(team, newPlayer);
-	            } else {
-	                console.log('failed to add:', newPlayer, 'to:', team);
-	            }
-	        }
-	
-	        function loadAndAddPlayer(newPlayer, team) {
-	            newPlayer = newPlayer.toLowerCase();
-	            if (nflPlayers.length < 1) {
-	                console.log('determined nfl players to not be initialized');
-	                loadNflPlayers().then(function() {
-	                    addPlayer(newPlayer, team);
-	                });
-	            } else {
-	                addPlayer(newPlayer, team);
-	            }
-	        }
-	
-	        return {
-	            loadAndAddPlayer: loadAndAddPlayer
-	        };
-	    }
-	}());
-
-
-/***/ },
+/* 6 */,
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -39703,17 +39644,17 @@
 	  angular.module('myApp.yourTeam')
 	    .controller('yourTeamController', YourTeamController);
 	
-	  YourTeamController.$inject = ['SetupFactory', 'addPlayersFactory'];
+	  YourTeamController.$inject = ['SetupFactory', 'playersFactory'];
 	
-	  function YourTeamController (SetupFactory, addPlayersFactory) {
+	  function YourTeamController (SetupFactory, playersFactory) {
 	    this.yourTeam = SetupFactory.teamState('yourTeam');
 	    this.updateTeam = function (player, team) {
-	      addPlayersFactory.loadAndAddPlayer(player, team);
+	      playersFactory.loadAndAddPlayer(player, team);
 	      // this clears the input fields after a player is added!
 	      this.player1 = '';
 	    };
 	    this.remove = function (team, index) {
-	      SetupFactory.removePlayer(team, index);
+	      playersFactory.removePlayer(team, index);
 	    };
 	  }
 	}());
@@ -39750,17 +39691,17 @@
 	
 	  angular.module('myApp.otherTeam')
 	    .controller('otherTeamController', OtherTeamController);
-	  OtherTeamController.$inject = ['SetupFactory', 'tradeValueFactory', 'addPlayersFactory'];
+	  OtherTeamController.$inject = ['SetupFactory', 'tradeValueFactory', 'playersFactory'];
 	
-	  function OtherTeamController (SetupFactory, tradeValueFactory, addPlayersFactory) {
+	  function OtherTeamController (SetupFactory, tradeValueFactory, playersFactory) {
 	    this.otherTeam = SetupFactory.teamState('otherTeam');
 	    this.updateTeam = function (player, team) {
-	      addPlayersFactory.loadAndAddPlayer(player, team);
+	      playersFactory.loadAndAddPlayer(player, team);
 	      // this clears the input fields after a player is added!
 	      this.player2 = '';
 	    };
 	    this.remove = function (team, index) {
-	      SetupFactory.removePlayer(team, index);
+	      playersFactory.removePlayer(team, index);
 	    };
 	    this.advice = [];
 	    this.tradeAnalysis = function (yourTeam, otherTeam) {
@@ -39801,19 +39742,19 @@
 	  'use strict';
 	  angular.module('myApp.analyzer')
 	    .controller('analyzerController', AnalyzerController);
-	  AnalyzerController.$inject = ['tradeValueFactory', 'addPlayersFactory', 'SetupFactory'];
+	  AnalyzerController.$inject = ['tradeValueFactory', 'playersFactory', 'SetupFactory'];
 	
-	  function AnalyzerController (tradeValueFactory, addPlayersFactory, SetupFactory) {
+	  function AnalyzerController (tradeValueFactory, playersFactory, SetupFactory) {
 	    this.yourTeam = SetupFactory.teamState('yourTeam');
 	    this.otherTeam = SetupFactory.teamState('otherTeam');
 	    this.updateTeam = function (player, team) {
-	      addPlayersFactory.loadAndAddPlayer(player, team);
+	      playersFactory.loadAndAddPlayer(player, team);
 	      // this clears the input fields after a player is added!
 	      this.player1 = '';
 	      this.player2 = '';
 	    };
 	    this.remove = function (team, index) {
-	      SetupFactory.removePlayer(team, index);
+	      playersFactory.removePlayer(team, index);
 	    };
 	    this.advice = [];
 	    this.tradeAnalysis = function (yourTeam, otherTeam) {
@@ -39866,6 +39807,72 @@
 	            analyzeTrade: analyzeTrade
 	        };
 	    }
+	}());
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	/*jshint esversion: 6 */
+	
+	(function () {
+	  'use strict';
+	  angular.module('myApp.team')
+	    .factory('playersFactory', playersFactory);
+	
+	  playersFactory.$inject = ['$http', 'SetupFactory'];
+	
+	  function playersFactory ($http, SetupFactory) {
+	    var nflPlayers = [];
+	
+	    function parsePlayers (data) {
+	      console.log('started parse with data from server');
+	      nflPlayers = data.filter(function (player) {
+	        return player.active === '1';
+	      }).map(function (player) {
+	        return player.displayName.toLowerCase();
+	      });
+	    }
+	
+	    function loadNflPlayers () {
+	      console.log('attempted to get player data from node server');
+	      return $http.get('http://localhost:8888/nflPlayers').then(function (response) {
+	        return response.data;
+	      }).then(parsePlayers);
+	    }
+	
+	    function addPlayer (newPlayer, team) {
+	      var playerPosition = nflPlayers.indexOf(newPlayer);
+	      if (playerPosition !== -1 && Object.keys(team).length < 5) {
+	        console.log('successfully added:', newPlayer, 'to:', team);
+	        SetupFactory.setTeam(team, newPlayer);
+	      } else {
+	        console.log('failed to add:', newPlayer, 'to:', team);
+	      }
+	    }
+	
+	    function loadAndAddPlayer (newPlayer, team) {
+	      newPlayer = newPlayer.toLowerCase();
+	      if (nflPlayers.length < 1) {
+	        console.log('determined nfl players to not be initialized');
+	        loadNflPlayers().then(function () {
+	          addPlayer(newPlayer, team);
+	        });
+	      } else {
+	        addPlayer(newPlayer, team);
+	      }
+	    }
+	
+	    function removePlayer (team, index) {
+	      SetupFactory.removePlayer(team, index);
+	    }
+	
+	    return {
+	      loadAndAddPlayer: loadAndAddPlayer,
+	      removePlayer: removePlayer
+	    };
+	  }
 	}());
 
 

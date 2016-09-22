@@ -1,5 +1,5 @@
 (function() {
     'use strict';
     angular.module('myApp.team', []);
-    require('./addPlayersFactory');
+    require('./playersFactory');
 }());
