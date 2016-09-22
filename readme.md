@@ -44,16 +44,12 @@
 
 ## Next Steps
 
-  * Create a toggle directive 
-
+  * Create a toggle directive
   * Create a typeahead directive
 
 ## Looking Ahead
 
   * Fix HTML and SASS
-
   * Implement WCAG standards
-
   * Implement OAUTH
-
   * Setup Database to store historical trade analysis
