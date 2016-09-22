@@ -1,5 +1,6 @@
 <h1>Fantasy Football App!</h1>
 [![BuildStatus](https://travis-ci.org/zackluckyf/angular-project.png)](https://travis-ci.org/zackluckyf/angular-project)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ca0c6e16ee65469c8efdd75da8183a8e)](https://www.codacy.com/app/fanning-34/angular-project?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=zackluckyf/angular-project&amp;utm_campaign=Badge_Grade)
 
 [Install Steps](#install-steps)
 
