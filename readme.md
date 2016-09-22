@@ -31,7 +31,7 @@
   * Uses third party API to keep data fresh
   * Built with AngularJS
   * Component based
-  * Webapck used to bundle dependencies
+  * Webpack used to bundle dependencies
 
 ## Next Steps
 
