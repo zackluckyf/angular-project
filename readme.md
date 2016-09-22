@@ -3,34 +3,34 @@
 
 [Install Steps](#install-steps)
 
+[Features](#features)
+
 [Next Steps](#next-steps)
 
 [Looking Ahead](#looking-ahead)
 
 ## Install Steps
 
-  * Clone Project
-  
+  * Clone Project  
   * Install Global Dependencies
     * npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack
-
   * Install Dev Dependencies
-
     * npm install
-
   * Run node server
-
     * cd expserver
-
     * node app.js
-
   * Run Http Server
-
     * npm start
-
     * navigate to 'http://localhost:8000'
-
     * enjoy the app!
+
+## Features
+
+  * Single Page Application
+  * Utilizes a Node server as a proxy to fix CORS issue
+  * Uses a factory to maintain state between controllers
+  * Navigable
+  * Gives Trade Value
 
 ## Next Steps
 
@@ -51,3 +51,5 @@ Fix HTML and SCSS
 Create a typeahead directive (optional)
 
 Create a toggle directive (loading page, also optional)
+
+Implement WACAG standards (optional)
