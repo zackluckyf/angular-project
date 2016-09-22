@@ -4,7 +4,7 @@
 
 [Next Steps](#next-steps)
 
-[Next Steps](#looking-ahead)
+[Looking Ahead](#looking-ahead)
 
 ## Install Steps
 
@@ -12,14 +12,25 @@
 
 2) Install Global Dependencies
 
-  i) npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack
+  a) npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack
 
 3) Install Dev Dependencies
 
-  i) npm install
+  a) npm install
 
+4) Run node server
 
+  a) cd expserver
 
+  b) node app.js
+
+5) Run Http Server
+
+  a) npm start
+
+  b) navigate to 'http://localhost:8000'
+
+  c) enjoy the app!
 
 ## Next Steps
 
