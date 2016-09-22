@@ -36,22 +36,16 @@
 
 ## Next Steps
 
-Controllers have state access through the main module's SetupFactory!
-
-Need a new remove function to get rid of players(look into splice in the SetupFactory)
-
-Move the initialization of state to the config with the state provider,
-
-keep the state updaters in the controllers modification functions to
-
-maintain state as players are added. Use the SetupFactory to make the players name camel case.
-
-## Looking Ahead
-
-Fix HTML and SCSS
-
 Create a typeahead directive (optional)
 
 Create a toggle directive (loading page, also optional)
 
-Implement WACAG standards (optional)
+Implement WCAG standards (optional)
+
+## Looking Ahead
+
+Fix HTML and SASS
+
+Implement OAUTH
+
+Setup Database to store historical trade analysis
