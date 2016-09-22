@@ -1,4 +1,5 @@
-<h1>Fantasy Football App!</h1> [![Build Status](https://travis-ci.org/zackluckyf/angular-project.png)](https://travis-ci.org/zackluckyf/angular-project)
+<h1>Fantasy Football App!</h1>
+[![BuildStatus](https://travis-ci.org/zackluckyf/angular-project.png)](https://travis-ci.org/zackluckyf/angular-project)
 
 [Install Steps](#install-steps)
 
@@ -8,29 +9,28 @@
 
 ## Install Steps
 
-1) Clone Project
+  * Clone Project
+  
+  * Install Global Dependencies
+    * npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack
 
-2) Install Global Dependencies
+  * Install Dev Dependencies
 
-  a) npm install -g gulp, karma, jasmine, karma-jasmine, protractor, webpack
+    * npm install
 
-3) Install Dev Dependencies
+  * Run node server
 
-  a) npm install
+    * cd expserver
 
-4) Run node server
+    * node app.js
 
-  a) cd expserver
+  * Run Http Server
 
-  b) node app.js
+    * npm start
 
-5) Run Http Server
+    * navigate to 'http://localhost:8000'
 
-  a) npm start
-
-  b) navigate to 'http://localhost:8000'
-
-  c) enjoy the app!
+    * enjoy the app!
 
 ## Next Steps
 
