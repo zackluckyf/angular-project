@@ -44,7 +44,7 @@
 
 ## Next Steps
 
-  * Create a toggle directive
+  * Create a toggle directive (loading page)
   * Create a typeahead directive
 
 ## Looking Ahead
