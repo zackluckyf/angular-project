@@ -52,7 +52,4 @@ describe('Players Factory', function() {
             players: []
         });
     });
-    it("should return an array from typeAhead", function() {
-        expect(playersFactory.typeAhead('Erik')).toEqual('');
-    });
 });
